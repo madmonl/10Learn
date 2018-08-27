@@ -8,9 +8,11 @@ export const LoginPage = ({ startGoogleLogin, startFacebookLogin, dispatchGuestL
     <div className="box-layout__box">
       <h1 className="box-layout__title">Boilerplate</h1>
       <p>Tag line for app.</p>
-      <button className="button" onClick={startGoogleLogin}>היכנסו עם גוגל</button>
-      <button className="button" onClick={startFacebookLogin}>היכנסו עם פייסבוק</button>      
-      <Link to="/dashboard" onClick={dispatchGuestLogin}>הירשמ/י כאורח/ת</Link>
+      <div className="login_buttons">
+        <button className="button button--google_login" onClick={startGoogleLogin}>היכנסו עם גוגל</button>
+        <button className="button button--facebook_login" onClick={startFacebookLogin}>היכנסו עם פייסבוק</button>      
+        <Link to="/dashboard" onClick={dispatchGuestLogin}>הירשמ/י כאורח/ת</Link>
+      </div>
     </div>
   </div>
 );

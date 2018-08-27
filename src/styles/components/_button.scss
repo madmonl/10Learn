@@ -8,12 +8,28 @@
   line-height: 1;
   padding: $s-size;
   text-decoration: none;
-}
+};
 
 .button--link {
   background: none;
-}
+};
 
 .button--secondary {
   background: #888;
+};
+
+.button--facebook_login {
+    margin-bottom: $s-size;
+    background: $blue-facebook;
+};
+
+.button--google_login {
+    margin-bottom: $s-size;
+    background: $red-google;    
+};
+
+.login_buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
