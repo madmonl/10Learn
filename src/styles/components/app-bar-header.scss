@@ -1,0 +1,27 @@
+.app-bar-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.app-bar-header--tabs {
+  font-size: 20px;
+}
+
+.app-bar-header__theme {
+  background: #098027
+}
+
+.app-bar-header__tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 130px;
+  height: 40px;
+  font-size: 1.5rem;
+}
+.dummy {
+  color: #ffffff
+}

@@ -9,12 +9,32 @@ import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
+import { green, amber } from '@material-ui/core/colors';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+    secondary: {
+      main: amber.A400,
+      light: amber[200],
+      dark: amber[700]
+    },
+    type: 'dark'
+  },
+  spacing: {
+    unit: 10
+  }
+});
 
 const store = configureStore();
 const jsx = (
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>
+  <MuiThemeProvider theme={theme}>
+    {console.log(theme)}
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  </MuiThemeProvider>
 );
 let hasRendered = false;
 const renderApp = () => {
@@ -24,7 +44,10 @@ const renderApp = () => {
   }
 };
 
-ReactDOM.render(<LoadingPage />, document.getElementById('app'));
+ReactDOM.render(
+  <MuiThemeProvider theme={theme}>
+    <LoadingPage />
+  </MuiThemeProvider>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {

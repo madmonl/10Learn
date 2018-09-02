@@ -1,8 +1,9 @@
 import React from 'react';
+import LoadingPage from './LoadingPage'
 
 const DashboardPage = () => (
     <div>
-        10Learn
+      
     </div>
 );
 

@@ -1,8 +1,8 @@
 {
-  "name": "boilerplate-react-app",
+  "name": "10Learn",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Andrew Mead",
+  "author": "Liad Madmon",
   "license": "MIT",
   "scripts": {
     "build:dev": "webpack",
@@ -13,6 +13,8 @@
     "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
+    "@material-ui/core": "^3.0.0",
+    "@material-ui/icons": "^3.0.1",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
@@ -21,7 +23,9 @@
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
+    "contentful": "^7.0.3",
     "css-loader": "0.28.4",
+    "dev-server": "^0.0.2",
     "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "firebase": "4.2.0",
@@ -30,10 +34,10 @@
     "node-sass": "4.5.3",
     "normalize.css": "7.0.0",
     "numeral": "2.0.6",
-    "react": "15.6.1",
+    "react": "16.3.0",
     "react-addons-shallow-compare": "15.6.0",
     "react-dates": "12.3.0",
-    "react-dom": "15.6.1",
+    "react-dom": "16.3.0",
     "react-modal": "2.2.2",
     "react-redux": "5.0.5",
     "react-router-dom": "4.1.2",
@@ -42,6 +46,7 @@
     "redux-thunk": "2.2.0",
     "sass-loader": "6.0.6",
     "style-loader": "0.18.2",
+    "styled-components": "^3.4.5",
     "uuid": "3.1.0",
     "validator": "8.0.0",
     "webpack": "3.1.0"
@@ -54,5 +59,6 @@
     "jest": "20.0.4",
     "react-test-renderer": "15.6.1",
     "webpack-dev-server": "2.5.1"
-  }
+  },
+  "repository": "https://github.com/madmonl/10Learn.git"
 }

@@ -2,7 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
+import AppBar from '../components/AppBar';
+import red from '@material-ui/core/colors/red'
 
+const styles = {
+    AppBar: {
+        background: red 
+    }
+}
+
+// <Header />
 export const PrivateRoute = ({
   isAuthenticated,
   component: Component,
@@ -10,8 +19,8 @@ export const PrivateRoute = ({
 }) => (
     <Route {...rest} component={(props) => (
       isAuthenticated ? (
-        <div>
-          <Header />
+        <div> 
+          <AppBar styles={styles.AppBar} />
           <Component {...props} />
         </div>
       ) : (

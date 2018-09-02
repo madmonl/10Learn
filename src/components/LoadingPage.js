@@ -1,9 +1,18 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import grey from '@material-ui/core/colors/grey';
+import { withStyles } from '@material-ui/core/styles';
 
-const LoadingPage = () => (
+const styles = theme => ({
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
+});
+
+const LoadingPage = ({ classes }) => (
   <div className="loader">
-    <img className="loader__image" src="/images/loader.gif" />
+    <CircularProgress className={classes.progress} size={80} />
   </div>
 );
 
-export default LoadingPage;
+export default withStyles(styles)(LoadingPage);
