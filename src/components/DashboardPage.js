@@ -1,10 +1,21 @@
-import React from 'react';
-import LoadingPage from './LoadingPage'
+import React, { Fragment } from 'react';
+import LoadingPage from './LoadingPage';
+import { Paper } from '@material-ui/core';
+import PrevExams from './PrevExams';
+import Practice from './Practice';
+import { connect } from 'react-redux';
 
-const DashboardPage = () => (
-    <div>
-      
-    </div>
+const DashboardPage = ({ currTab }) => (
+  <Fragment>
+    {currTab === 'תרגול' && <Practice/>}
+    {currTab === 'מבחנים קודמים' && <PrevExams/>}
+  </Fragment>
 );
 
-export default DashboardPage;
+
+const mapStateToProps = (state) => ({
+    currTab: state.material.currTab
+});
+
+export default connect(mapStateToProps)(DashboardPage);
+  

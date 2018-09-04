@@ -9,16 +9,16 @@ import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
-import { green, amber } from '@material-ui/core/colors';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { green, grey } from '@material-ui/core/colors';
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
   palette: {
     primary: green,
     secondary: {
-      main: amber.A400,
-      light: amber[200],
-      dark: amber[700]
+      main: grey[400],
+      light: grey[200],
+      dark: grey[700]
     },
     type: 'dark'
   },
@@ -51,14 +51,12 @@ ReactDOM.render(
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('0');
     store.dispatch(login(user.uid));
     renderApp();
     if (history.location.pathname === '/') {
       history.push('/dashboard');
     }
   } else {
-    console.log('0');
     store.dispatch(logout());
     renderApp();
     history.push('/');

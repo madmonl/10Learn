@@ -14,14 +14,42 @@
 .app-bar-header__tab {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 0;
   margin: 0;
-  width: 130px;
-  height: 40px;
+  width: auto;
+  height: auto;
   font-size: 1.5rem;
 }
+
+.app-bar-header__icon {
+  margin: 0;
+}
+
+.pencil {
+  margin-right: 10px;
+}
+
+.MuiButtonBase-root-97 {
+  padding: 0
+}
+
+.MuiTab-wrapper-93 {
+  padding: 0 !important;
+}
+
+.MuiTab-labelContainer-94{
+  @media (min-width: 960px) {
+    padding: 0 !important;
+  }
+}
+
+.dashboard-paper {
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+}
+
 .dummy {
   color: #ffffff
 }
