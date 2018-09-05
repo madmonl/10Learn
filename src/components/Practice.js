@@ -1,54 +1,126 @@
-import React, { Fragment } from 'react';
-import { Button, IconButton, Typography, Toolbar, AppBar, Tabs, Tab, 
-  Badge, Paper } from '@material-ui/core/';
+import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
+import { Typography, Paper, FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import compose from 'recompose/compose';
+import Exam from './Exam';
+import { Send } from '@material-ui/icons';
+
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
   paper: { 
     padding: theme.spacing.unit * 2, 
-    overflowY: 'auto' ,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 10px)',
-      marginTop: 5  
-    },
-    [theme.breakpoints.down('xs')]: {
-      height: '100%',
-    }
+    overflowY: 'auto',
+    height: '500px',
+    marginTop: '5px'
   },
+  formControl: {
+    margin: theme.spacing.unit * 3,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  }
+});
 
-  '@global': {
-    'html, body, #root': {
-      height: '100%'
+export class Practice extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedSubjects: [],
+      noSubjectsChosenError: false,  
+      startExam: false
     }
-  },
 
-  container: {
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px - 48px)'
-    },
-    [theme.breakpoints.down('xs')]: {
-      height: 'calc(100% - 58px - 48px)'
-    }
-  },
-  
-  item: {
-    [theme.breakpoints.down('xs')]: {
-      height: '50%'
+    this.onChange.bind(this);
+  }
+
+  onChange = subject => {
+    this.setState(({ selectedSubjects }) => {
+      if (selectedSubjects.includes(subject)) {
+        selectedSubjects.splice(selectedSubjects.indexOf(subject), 1)
+        return { selectedSubjects }
+      } else return { 
+        selectedSubjects: [
+          ...selectedSubjects,
+          subject
+        ] 
+      }
+    })
+  }
+
+  onStartExamClick = () => {
+    if (this.state.selectedSubjects.length === 0) {
+      this.setState(() => ({
+        noSubjectsChosenError: true
+      }))
+    } else {
+      this.setState(() => ({
+        startExam: true
+      }))
     }
   }
-})
 
-export default withStyles(styles)(props => {
-  const { classes } = props;
-  return (
-    <Fragment>
-      <Paper className={classes.paper}>
-        <Typography
-          variant="subheading"
-          style={{ marginTop: 20 }}
-        >
-          Hi from Practice.
-        </Typography>            
-      </Paper>
-    </Fragment>
-  )
+  render() {
+    const { classes, subjects } = this.props,
+        { selectedSubjects, noSubjectsChosenError, startExam } = this.state;
+
+    return (
+      <div className="content-container">
+        <Paper className={classes.paper}>
+          { !startExam
+              ? <Fragment>
+                  <Typography
+                    variant="subheading"
+                    style={{ marginTop: 20 }}
+                  >
+                    <FormControl component="fieldset" className={classes.formControl}>
+                      <FormLabel component="legend">בחרו נושאים:</FormLabel>
+                      <FormGroup>
+                        {
+                          subjects.map(subject => (
+                            <FormControlLabel
+                              key={subject} 
+                              control={
+                                <Checkbox key={subject} checked={selectedSubjects.includes(subject)} onChange={() => this.onChange(subject)} value={subject} />
+                              }
+                              label={subject}
+                            />
+                          ))
+                        }
+                      </FormGroup>
+                      { noSubjectsChosenError && <FormHelperText>בחרו נושא אחד לפחות!</FormHelperText>}
+                    </FormControl>
+                  </Typography>
+                  <Button 
+                    variant="contained" 
+                    color="primary" 
+                    className={classes.button}
+                    onClick={this.onStartExamClick}
+                  >
+                    התחל מבחן
+                    <Send className={classes.rightIcon} />
+                  </Button>
+                </Fragment>                
+              : <Exam subjects={selectedSubjects} />
+          }
+        </Paper>
+      </div>
+    )
+  } 
+};
+
+Practice.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  subjects: state.material.subjects
 });
+
+export default compose(
+    withStyles(styles), 
+    connect(mapStateToProps, undefined)
+  )(Practice);

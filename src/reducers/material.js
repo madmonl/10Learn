@@ -3,7 +3,11 @@ let materialDefaults = {
     'תרגול',
     'מבחנים קודמים'
   ],
-  currTab: 'תרגול'
+  currTab: 'תרגול',
+  subjects: [
+    'חיבור',
+    'חיסור'
+  ]
 };
 
 export default (state = materialDefaults, action) => {
