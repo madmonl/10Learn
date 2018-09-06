@@ -8,7 +8,7 @@ import Exam from './Exam';
 import { Send } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
 
-const styles = theme => ({
+export const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
@@ -71,7 +71,6 @@ export class Practice extends Component {
         startExam: true,
         questions: questions
       }))
-      console.log('hi');
     }
   }
 

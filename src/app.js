@@ -30,7 +30,6 @@ export const theme = createMuiTheme({
 const store = configureStore();
 const jsx = (
   <MuiThemeProvider theme={theme}>
-    {console.log(theme)}
     <Provider store={store}>
       <AppRouter />
     </Provider>
