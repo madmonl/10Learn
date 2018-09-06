@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Exam from './Exam';
 import { Send } from '@material-ui/icons';
+import QuestionGenerator from './QuestionGenerator';
 
 const styles = theme => ({
   button: {
@@ -31,10 +32,12 @@ export class Practice extends Component {
     this.state = {
       selectedSubjects: [],
       noSubjectsChosenError: false,  
-      startExam: false
+      startExam: false,
+      questions: []
     }
 
-    this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onStartExamClick = this.onStartExamClick.bind(this);
   }
 
   onChange = subject => {
@@ -57,15 +60,24 @@ export class Practice extends Component {
         noSubjectsChosenError: true
       }))
     } else {
+      const questions = [];
+      var i;
+      for (i = 0; i < 10; i++) {
+        questions[i] = QuestionGenerator({
+          subjects: this.state.selectedSubjects
+        });
+      }
       this.setState(() => ({
-        startExam: true
+        startExam: true,
+        questions: questions
       }))
+      console.log('hi');
     }
   }
 
   render() {
     const { classes, subjects } = this.props,
-        { selectedSubjects, noSubjectsChosenError, startExam } = this.state;
+        { questions, selectedSubjects, noSubjectsChosenError, startExam } = this.state;
 
     return (
       <div className="content-container">
@@ -104,7 +116,10 @@ export class Practice extends Component {
                     <Send className={classes.rightIcon} />
                   </Button>
                 </Fragment>                
-              : <Exam subjects={selectedSubjects} />
+              : <Exam 
+                  subjects={selectedSubjects} 
+                  questions={questions}
+                />
           }
         </Paper>
       </div>
