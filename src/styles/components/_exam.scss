@@ -2,14 +2,52 @@
 
 }
 
-.exam__question {
-  color: white;
+.exam__navigation {
+  display: block;
+  width: 425px;
 }
 
-.exam__navigation {
+.exam__navigation-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 
+.exam__question-navigation-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid lighten(#4caf50, 30%);
+  border-top: 1px solid lighten(#4caf50, 30%);
+}
+
+.exam__question {
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: $s-size;
+  align-items: center;
+  width: 425px;
 }
 
 .exam__answers {
   
+}
+
+.exam__answer-item {
+  border-bottom: 1px solid lighten(#4caf50, 30%);
+}
+
+.MJXc-display {
+  transition: background .3s ease;
+  // same as doing .list-item:hover
+  padding: 1em 0 !important;
+  margin: 0 !important;
+  &:hover {
+      cursor: pointer;
+      background: lighten(#424242, 20%);
+  }
+}
+
+.mjx-math * {
+  color: white !important;
 }

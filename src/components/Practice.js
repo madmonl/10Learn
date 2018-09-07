@@ -2,20 +2,21 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Paper, FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
+import { IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Exam from './Exam';
-import { Send } from '@material-ui/icons';
+import { Send, ChevronRight } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
+import { dispatchSetQuestions } from '../actions/exam';
 
 export const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
   paper: { 
-    padding: theme.spacing.unit * 2, 
     overflowY: 'auto',
-    height: '500px',
+    height: '550px',
     marginTop: '5px'
   },
   formControl: {
@@ -32,8 +33,7 @@ export class Practice extends Component {
     this.state = {
       selectedSubjects: [],
       noSubjectsChosenError: false,  
-      startExam: false,
-      questions: []
+      startExam: false
     }
 
     this.onChange = this.onChange.bind(this);
@@ -54,6 +54,9 @@ export class Practice extends Component {
     })
   }
 
+  onReturn = () => this.setState({ startExam: false });
+  
+
   onStartExamClick = () => {
     if (this.state.selectedSubjects.length === 0) {
       this.setState(() => ({
@@ -68,19 +71,28 @@ export class Practice extends Component {
         });
       }
       this.setState(() => ({
-        startExam: true,
-        questions: questions
+        startExam: true
       }))
+      this.props.dispatchSetQuestions(questions)
     }
   }
 
   render() {
     const { classes, subjects } = this.props,
-        { questions, selectedSubjects, noSubjectsChosenError, startExam } = this.state;
+        { selectedSubjects, noSubjectsChosenError, startExam } = this.state;
 
     return (
       <div className="content-container">
         <Paper className={classes.paper}>
+          <IconButton 
+            className={classes.button} 
+            disabled={!startExam}
+            aria-label="ChevronRight"
+            onClick={this.onReturn}
+            color="primary"
+          >
+            <ChevronRight />
+          </IconButton>
           { !startExam
               ? <Fragment>
                   <Typography
@@ -117,7 +129,6 @@ export class Practice extends Component {
                 </Fragment>                
               : <Exam 
                   subjects={selectedSubjects} 
-                  questions={questions}
                 />
           }
         </Paper>
@@ -134,7 +145,12 @@ const mapStateToProps = (state) => ({
   subjects: state.material.subjects
 });
 
+const mapDispatchToProps = dispatch => ({
+  dispatchSetQuestions: (questions) => dispatch(
+    dispatchSetQuestions(questions))
+})
+
 export default compose(
     withStyles(styles), 
-    connect(mapStateToProps, undefined)
+    connect(mapStateToProps, mapDispatchToProps)
   )(Practice);
