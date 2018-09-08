@@ -3,9 +3,14 @@ import MathJax from 'react-mathjax';
 import { Button } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
 import { Send } from '@material-ui/icons';
-import { dispatchChangeQuestion } from '../actions/exam';
+import styled from 'styled-components';
+import { dispatchChangeQuestion, dispatchChangeButtonColor } from '../actions/exam';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
+
+const ButtonCSS = styled(Button)`
+  background-color: rgba(255, 255, 255, 0.1) !important;
+`;
 
 export const styles = theme => ({
   navButton: {
@@ -43,27 +48,37 @@ export class Exam extends Component {
   }
   
   onQuestionSummaryClick = index => {
-    this.props.dispatchChangeQuestion(index)    
+    this.props.dispatchChangeQuestion(index);
+    this.props.dispatchChangeButtonColor(index);  
   }
 
   onSubmitQuestion = () => 
     this.props.dispatchChangeQuestion((this.props.currQuestion + 1) % 10)
   
   render () {
-    const { questions, currQuestion, classes } = this.props;
+    const { questions, currQuestion, classes, answeredQuestions } = this.props;
     return (
       <div className="exam">
         <div className="exam__navigation-container">
           <div className="exam__navigation">
               {questions.map((question, index) =>             
-                <Button 
-                  key={index}
-                  variant="outlined" 
-                  className={classes.navButton}
-                  onClick={() => this.onQuestionSummaryClick(index)}
-                >
-                  {index}
-                </Button>
+                currQuestion === index
+                ? <ButtonCSS 
+                    key={index}
+                    variant="outlined" 
+                    className={classes.navButton}
+                    onClick={() => this.onQuestionSummaryClick(index)}
+                  >
+                    {index + 1}
+                  </ButtonCSS>
+                : <Button 
+                    key={index}
+                    variant="outlined" 
+                    className={classes.navButton}
+                    onClick={() => this.onQuestionSummaryClick(index)}
+                  >
+                    {index + 1}
+                  </Button>
               )}
           </div>
         </div>
@@ -118,17 +133,16 @@ export class Exam extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
     dispatchChangeQuestion: (question) => dispatch(dispatchChangeQuestion(question)),
+    dispatchChangeButtonColor: (index) => dispatch(dispatchChangeButtonColor(index))
 });
 
 const mapStateToProps = (state) => ({
     questions: state.exam.questions,
-    currQuestion: state.exam.currQuestion
+    currQuestion: state.exam.currQuestion,
+    answeredQuestions: state.exam.answeredQuestions
 });
   
 export default compose(
   withStyles(styles), 
   connect(mapStateToProps, mapDispatchToProps))
   (Exam);
-
-  // questions: props.questions,
-  // currQuestion: 0,

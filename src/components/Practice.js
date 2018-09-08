@@ -15,7 +15,6 @@ export const styles = theme => ({
     margin: theme.spacing.unit,
   },
   paper: { 
-    overflowY: 'auto',
     height: '550px',
     marginTop: '5px'
   },
