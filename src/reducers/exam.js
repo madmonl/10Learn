@@ -55,11 +55,24 @@ export default (state = examState, action) => {
             ...state,
             questionsStatus                        
           }
+        case 'CLEAR_QUESTIONS_STATUS':
+          for (i = 0; i < 10; i++) {
+            questionsStatus[i] = 'being_answered';
+          }
+          return {
+            ...state,
+            questionsStatus                        
+          }
         case 'SET_ANSWER':
           answersStatus[action.index] = action.answer
           return {
             ...state,
             answersStatus
+          }
+        case 'SET_GRADE':
+          return {
+            ...state,
+            grade: action.grade
           }
         default:
             return state;

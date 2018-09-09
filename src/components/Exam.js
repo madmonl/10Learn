@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Send, Done } from '@material-ui/icons';
 import styled from 'styled-components';
 import { dispatchChangeQuestion, dispatchChangeButtonColor, dispatchMarkQuestion, 
-  dispatchChangeQuestionStatus, dispatchSetAnswer, dispatchCleanMarkedQuestions } from '../actions/exam';
+  dispatchChangeQuestionStatus, dispatchSetAnswer, dispatchCleanMarkedQuestions,
+  dispatchSetGrade } from '../actions/exam';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -88,9 +89,24 @@ export class Exam extends Component {
     this.props.dispatchSetAnswer(index, answer);
   } 
 
-  onSubmitExam = () => {
+  onSubmitExam = questionsStatus => {
     // Open Modal
-      this.setState({ open: true });
+    var index = 0;
+    for (; index < 10; index++) {
+      this.props.dispatchChangeQuestionStatus(index, this.props.questions[index].index === this.props.answersStatus[index]
+        ? 'correct'
+        : 'mistake'
+      );
+    };
+    this.props.dispatchSetGrade((questionsStatus.reduce((prevQuestionsStatuses, questionStatus) => {
+      if (questionStatus === 'correct') {
+        prevQuestionsStatuses.push(questionStatus);
+        return prevQuestionsStatuses;
+      } else {
+        return prevQuestionsStatuses
+      }
+    }, []).length / 10) * 100);   
+    this.setState({ open: true });
   }
 
   onModalClose = () => {
@@ -103,20 +119,13 @@ export class Exam extends Component {
     // answers in red or green respectively. 
     this.props.dispatchCleanMarkedQuestions();
     this.props.dispatchChangeQuestion(0);
-    var index = 0;
-    for (; index < 10; index++) {
-      this.props.dispatchChangeQuestionStatus(index, this.props.questions[index].index === this.props.answersStatus[index]
-        ? 'correct'
-        : 'mistake'
-      );
-    };
-    // 
-
     this.setState({ open: false });
   }
           
   render () {
-    const { questions, currQuestion, classes, answeredQuestions, questionsStatus, answersStatus } = this.props,
+    const { questions, currQuestion, classes, 
+          answeredQuestions, questionsStatus, 
+          answersStatus, grade } = this.props,
           { open } = this.state;
     return (
       <div className="exam">
@@ -173,7 +182,7 @@ export class Exam extends Component {
                 })}
             </div>
           </div>
-          <Button onClick={this.onSubmitExam} variant="contained" size="small" className={classes.button}>            
+          <Button onClick={() => this.onSubmitExam(questionsStatus)} variant="contained" size="small" className={classes.button}>            
             סיום מבחן
             <Done className={classes.IconLeft} />
           </Button>
@@ -182,18 +191,18 @@ export class Exam extends Component {
             aria-describedby="simple-modal-description"
             open={open}
             onClose={this.onModalClose}
-            
+            className="MuiModal-root-container"
           >
             <Slide direction="up" in={open} mountOnEnter unmountOnExit>
               <div style={getModalStyle()} className={classes.paper}>
                 <Typography variant="title" id="modal-title">
-                  הציון שלך הוא:
+                  הציון שלך הוא: {grade}
                 </Typography>                
                 <Button onClick={this.onSpectateExamSolutions} variant="contained" size="small" className={classes.button}>            
                   צפייה בתשובות
                   <Done className={classes.IconLeft} />
                 </Button>
-                <Button variant="contained" size="small" className={classes.button}>            
+                <Button onClick={() => {}} variant="contained" size="small" className={classes.button}>            
                   מבחן חדש
                   <Done className={classes.IconLeft} />
                 </Button>
@@ -256,7 +265,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchMarkQuestion: (index) => dispatch(dispatchMarkQuestion(index)),
     dispatchChangeQuestionStatus: (index, status) => dispatch(dispatchChangeQuestionStatus(index, status)),
     dispatchSetAnswer: (index, answer) => dispatch(dispatchSetAnswer(index, answer)),
-    dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions())
+    dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
+    dispatchSetGrade: (grade) => dispatch(dispatchSetGrade(grade))
 });
 
 const mapStateToProps = (state) => ({
@@ -264,7 +274,8 @@ const mapStateToProps = (state) => ({
     currQuestion: state.exam.currQuestion,
     answeredQuestions: state.exam.answeredQuestions,
     questionsStatus: state.exam.questionsStatus,
-    answersStatus: state.exam.answersStatus
+    answersStatus: state.exam.answersStatus,
+    grade: state.exam.grade,
 });
   
 export default compose(

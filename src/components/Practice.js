@@ -7,7 +7,8 @@ import compose from 'recompose/compose';
 import Exam from './Exam';
 import { Send, ChevronRight } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
-import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions } from '../actions/exam';
+import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions,
+  dispatchClearQuestionsStatus } from '../actions/exam';
 
 export const styles = theme => ({
   button: {
@@ -104,6 +105,8 @@ export class Practice extends Component {
     }
     this.props.dispatchCleanMarkedQuestions();
     this.props.dispatchChangeQuestion(0);
+    this.props.dispatchClearQuestionsStatus();
+    // TODO clear answers status to -1 as well
   }
 
   render() {
@@ -187,7 +190,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   dispatchSetQuestions: (questions) => dispatch(dispatchSetQuestions(questions)),
   dispatchChangeQuestion: (index) => dispatch(dispatchChangeQuestion(index)), 
-  dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions())
+  dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
+  dispatchClearQuestionsStatus: () => dispatch(dispatchClearQuestionsStatus())
 })
 
 export default compose(
