@@ -1,14 +1,13 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Paper, FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from '@material-ui/core/';
+import { Typography, Paper, FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button, IconButton, Chip } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Exam from './Exam';
 import { Send, ChevronRight } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
-import { dispatchSetQuestions } from '../actions/exam';
+import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions } from '../actions/exam';
 
 export const styles = theme => ({
   button: {
@@ -23,7 +22,10 @@ export const styles = theme => ({
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
-  }
+  },
+  chip: {
+    margin: theme.spacing.unit,
+  },
 });
 
 export class Practice extends Component {
@@ -32,28 +34,53 @@ export class Practice extends Component {
     this.state = {
       selectedSubjects: [],
       noSubjectsChosenError: false,  
-      startExam: false
+      startExam: false,
+      chipCount: 0
     }
 
     this.onChange = this.onChange.bind(this);
     this.onStartExamClick = this.onStartExamClick.bind(this);
+    this.onDeleteChip = this.onDeleteChip.bind(this);
   }
 
   onChange = subject => {
-    this.setState(({ selectedSubjects }) => {
+    this.setState(({ chipCount, selectedSubjects }) => {
       if (selectedSubjects.includes(subject)) {
         selectedSubjects.splice(selectedSubjects.indexOf(subject), 1)
-        return { selectedSubjects }
+        return { selectedSubjects, chipCount: chipCount - 1 }
       } else return { 
         selectedSubjects: [
           ...selectedSubjects,
           subject
-        ] 
+        ],
+        chipCount: chipCount + 1
       }
     })
   }
 
-  onReturn = () => this.setState({ startExam: false });
+  onReturn = () => {
+    this.props.dispatchChangeQuestion(0);
+    this.setState({ startExam: false });
+  }
+
+  onDeleteChip = subjectIndex => {
+    this.setState(({ chipCount, selectedSubjects }) => {
+      if (chipCount === 1) {
+        return {
+          startExam: false,
+          selectedSubjects: [] 
+        }
+      } else {
+        selectedSubjects.splice(subjectIndex, 1);
+        return { 
+          chipCount: chipCount - 1,
+          selectedSubjects: selectedSubjects 
+        }
+      };
+    }, this.onStartExamClick)
+  }
+    
+    
   
 
   onStartExamClick = () => {
@@ -69,15 +96,18 @@ export class Practice extends Component {
           subjects: this.state.selectedSubjects
         });
       }
-      this.setState(() => ({
-        startExam: true
+      this.setState(({ selectedSubjects }) => ({
+        startExam: true,
+        chipCount: selectedSubjects.length
       }))
       this.props.dispatchSetQuestions(questions)
     }
+    this.props.dispatchCleanMarkedQuestions();
+    this.props.dispatchChangeQuestion(0);
   }
 
   render() {
-    const { classes, subjects } = this.props,
+    const { classes, subjects, dispatchChangeQuestion } = this.props,
         { selectedSubjects, noSubjectsChosenError, startExam } = this.state;
 
     return (
@@ -92,6 +122,18 @@ export class Practice extends Component {
           >
             <ChevronRight />
           </IconButton>
+          {
+            selectedSubjects.map((subject, index) => 
+              <Chip 
+                key={index}
+                label={subject}
+                onDelete={() => this.onDeleteChip(index)}
+                className={classes.chip}
+                color="primary"
+                variant="outlined"
+              />
+            )
+          }
           { !startExam
               ? <Fragment>
                   <Typography
@@ -126,9 +168,7 @@ export class Practice extends Component {
                     <Send className={classes.rightIcon} />
                   </Button>
                 </Fragment>                
-              : <Exam 
-                  subjects={selectedSubjects} 
-                />
+              : <Exam />
           }
         </Paper>
       </div>
@@ -145,8 +185,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchSetQuestions: (questions) => dispatch(
-    dispatchSetQuestions(questions))
+  dispatchSetQuestions: (questions) => dispatch(dispatchSetQuestions(questions)),
+  dispatchChangeQuestion: (index) => dispatch(dispatchChangeQuestion(index)), 
+  dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions())
 })
 
 export default compose(

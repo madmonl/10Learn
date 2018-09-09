@@ -1,15 +1,32 @@
 import React, { Fragment, Component } from 'react';
 import MathJax from 'react-mathjax';
-import { Button } from '@material-ui/core/';
+import { Button, Modal, Slide, Typography } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
-import { Send } from '@material-ui/icons';
+import { Send, Done } from '@material-ui/icons';
 import styled from 'styled-components';
-import { dispatchChangeQuestion, dispatchChangeButtonColor } from '../actions/exam';
+import { dispatchChangeQuestion, dispatchChangeButtonColor, dispatchMarkQuestion, 
+  dispatchChangeQuestionStatus, dispatchSetAnswer, dispatchCleanMarkedQuestions } from '../actions/exam';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+function getModalStyle() {
+  return {
+    margin:'auto'
+  };
+}
+
 
 const ButtonCSS = styled(Button)`
   background-color: rgba(255, 255, 255, 0.1) !important;
+`;
+
+const ButtonMistake = styled(Button)`
+  background-color: rgb(199, 67, 44) !important;
+`;
+
+const ButtonCorrect = styled(Button)`
+  background-color: rgb(34, 184, 34) !important;
 `;
 
 export const styles = theme => ({
@@ -24,13 +41,26 @@ export const styles = theme => ({
   },
   leftIcon: {
     marginLeft: theme.spacing.unit
-  }
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  },
 })
 
 export class Exam extends Component {
   
   constructor(props) {
     super(props);
+    this.state = {
+      open: false
+    }
     this.onQuestionSummaryClick = this.onQuestionSummaryClick.bind(this);
     this.onQuestionChange == this.onQuestionChange.bind(this);
   }
@@ -49,38 +79,127 @@ export class Exam extends Component {
   
   onQuestionSummaryClick = index => {
     this.props.dispatchChangeQuestion(index);
-    this.props.dispatchChangeButtonColor(index);  
+    // this.props.dispatchChangeButtonColor(index);  
   }
 
-  onSubmitQuestion = () => 
-    this.props.dispatchChangeQuestion((this.props.currQuestion + 1) % 10)
-  
+  onSubmitQuestion = (index, answer) => {
+    this.props.dispatchChangeQuestion((index + 1) % 10);
+    this.props.dispatchMarkQuestion(index);
+    this.props.dispatchSetAnswer(index, answer);
+  } 
+
+  onSubmitExam = () => {
+    // Open Modal
+      this.setState({ open: true });
+  }
+
+  onModalClose = () => {
+    // Close Modal
+    this.setState({ open: false })
+  }
+
+  onSpectateExamSolutions = () => {
+    // Clean marked questions so we can mark correct and wrong 
+    // answers in red or green respectively. 
+    this.props.dispatchCleanMarkedQuestions();
+    this.props.dispatchChangeQuestion(0);
+    var index = 0;
+    for (; index < 10; index++) {
+      this.props.dispatchChangeQuestionStatus(index, this.props.questions[index].index === this.props.answersStatus[index]
+        ? 'correct'
+        : 'mistake'
+      );
+    };
+    // 
+
+    this.setState({ open: false });
+  }
+          
   render () {
-    const { questions, currQuestion, classes, answeredQuestions } = this.props;
+    const { questions, currQuestion, classes, answeredQuestions, questionsStatus, answersStatus } = this.props,
+          { open } = this.state;
     return (
       <div className="exam">
-        <div className="exam__navigation-container">
-          <div className="exam__navigation">
-              {questions.map((question, index) =>             
-                currQuestion === index
-                ? <ButtonCSS 
-                    key={index}
-                    variant="outlined" 
-                    className={classes.navButton}
-                    onClick={() => this.onQuestionSummaryClick(index)}
-                  >
-                    {index + 1}
-                  </ButtonCSS>
-                : <Button 
-                    key={index}
-                    variant="outlined" 
-                    className={classes.navButton}
-                    onClick={() => this.onQuestionSummaryClick(index)}
-                  >
-                    {index + 1}
-                  </Button>
-              )}
+        <div className="exam__upper-footer">
+          <div className="exam__navigation-container">
+            <div className="exam__navigation">
+                {questions.map((undefined, index) => {
+                  if ((currQuestion === index || answeredQuestions[index]) 
+                    && questionsStatus[index] === 'being_answered') {
+                     return (
+                      <ButtonCSS
+                        key={index}
+                        variant="outlined" 
+                        className={classes.navButton}
+                        onClick={() => this.onQuestionSummaryClick(index)}
+                      >
+                        {index + 1}
+                      </ButtonCSS>
+                     )
+                  } else if (questionsStatus[index] === 'correct') {
+                    return (
+                      <ButtonCorrect
+                        key={index}
+                        variant="outlined" 
+                        className={classes.navButton}
+                        onClick={() => this.onQuestionSummaryClick(index)}
+                      >
+                        {index + 1}
+                      </ButtonCorrect>
+                    )
+                  } else if (questionsStatus[index] === 'mistake') {
+                    return (
+                      <ButtonMistake
+                        key={index}
+                        variant="outlined" 
+                        className={classes.navButton}
+                        onClick={() => this.onQuestionSummaryClick(index)}
+                      >
+                        {index + 1}
+                      </ButtonMistake>
+                    )
+                  } else {
+                    return (
+                      <Button 
+                        key={index}
+                        variant="outlined" 
+                        className={classes.navButton}
+                        onClick={() => this.onQuestionSummaryClick(index)}
+                      >
+                        {index + 1}
+                      </Button>
+                    )
+                  }
+                })}
+            </div>
           </div>
+          <Button onClick={this.onSubmitExam} variant="contained" size="small" className={classes.button}>            
+            סיום מבחן
+            <Done className={classes.IconLeft} />
+          </Button>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={open}
+            onClose={this.onModalClose}
+            
+          >
+            <Slide direction="up" in={open} mountOnEnter unmountOnExit>
+              <div style={getModalStyle()} className={classes.paper}>
+                <Typography variant="title" id="modal-title">
+                  הציון שלך הוא:
+                </Typography>                
+                <Button onClick={this.onSpectateExamSolutions} variant="contained" size="small" className={classes.button}>            
+                  צפייה בתשובות
+                  <Done className={classes.IconLeft} />
+                </Button>
+                <Button variant="contained" size="small" className={classes.button}>            
+                  מבחן חדש
+                  <Done className={classes.IconLeft} />
+                </Button>
+              </div>
+            </Slide>
+          </Modal>
         </div>
         <div className="exam__question-navigation-container">
           <div className="exam__question">
@@ -92,11 +211,11 @@ export class Exam extends Component {
           </div>
         </div>
         <div className="exam__answers">
-          {questions[currQuestion].solutions.map(solution =>
+          {questions[currQuestion].solutions.map((solution, index) =>
             <div 
               className="exam__answer-item"
-              key={solution}
-              onClick={this.onSubmitQuestion}
+              key={index}
+              onClick={() => this.onSubmitQuestion(currQuestion, index)}
             >
               <MathJax.Provider>
                 <div>
@@ -133,16 +252,26 @@ export class Exam extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
     dispatchChangeQuestion: (question) => dispatch(dispatchChangeQuestion(question)),
-    dispatchChangeButtonColor: (index) => dispatch(dispatchChangeButtonColor(index))
+    dispatchChangeButtonColor: (index) => dispatch(dispatchChangeButtonColor(index)),
+    dispatchMarkQuestion: (index) => dispatch(dispatchMarkQuestion(index)),
+    dispatchChangeQuestionStatus: (index, status) => dispatch(dispatchChangeQuestionStatus(index, status)),
+    dispatchSetAnswer: (index, answer) => dispatch(dispatchSetAnswer(index, answer)),
+    dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions())
 });
 
 const mapStateToProps = (state) => ({
     questions: state.exam.questions,
     currQuestion: state.exam.currQuestion,
-    answeredQuestions: state.exam.answeredQuestions
+    answeredQuestions: state.exam.answeredQuestions,
+    questionsStatus: state.exam.questionsStatus,
+    answersStatus: state.exam.answersStatus
 });
   
 export default compose(
   withStyles(styles), 
   connect(mapStateToProps, mapDispatchToProps))
   (Exam);
+
+Exam.propTypes = {
+  classes: PropTypes.object.isRequired,
+};

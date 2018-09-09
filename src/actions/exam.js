@@ -8,7 +8,28 @@ export const dispatchSetQuestions = questions => ({
   questions
 });
 
-export const dispatchChangeButtonColor = index => {
+export const dispatchChangeButtonColor = index => ({
   type: 'CHANGE_NAVIGATION_BUTTON_COLOR',
   index
-}
+})
+
+export const dispatchMarkQuestion = index => ({
+  type: 'MARK_QUESTION',
+  index
+})
+
+export const dispatchCleanMarkedQuestions = index => ({
+  type: 'CLEAN_MARKED_QUESTIONS'
+})
+
+export const dispatchChangeQuestionStatus = (index, status) => ({
+  type: 'CHANGE_QUESTION_STATUS',
+  index, 
+  status
+});
+
+export const dispatchSetAnswer = (index, answer) => ({
+  type: 'SET_ANSWER',
+  index,
+  answer
+})

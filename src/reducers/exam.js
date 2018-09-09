@@ -1,12 +1,19 @@
-let answeredQuestions = [];
+let answeredQuestions = [], 
+    answersStatus = [], 
+    questionsStatus = [];
+
 var i = 0;
-for (i = 1; i < 10; i++) {
+for (;i < 10; i++) {
   answeredQuestions[i] = false;
+  questionsStatus[i] = 'being_answered';
+  answersStatus[i] = -1;
 }
 
 let examState = { 
   currQuestion: 0, 
-  answeredQuestions: answeredQuestions
+  answeredQuestions: answeredQuestions,
+  questionsStatus: questionsStatus,
+  answersStatus: answersStatus
 }
 
 export default (state = examState, action) => {
@@ -27,7 +34,33 @@ export default (state = examState, action) => {
           return {
             ...state,
             answeredQuestions
-          };      
+          };     
+        case 'MARK_QUESTION':
+          answeredQuestions[action.index] = true;
+          return {
+            ...state,
+            answeredQuestions
+          }
+        case 'CLEAN_MARKED_QUESTIONS':
+          for (i = 0; i < 10; i++) {
+            answeredQuestions[i] = false;
+          }
+          return {
+            ...state,
+            answeredQuestions
+          }
+        case 'CHANGE_QUESTION_STATUS':
+          questionsStatus[action.index] = action.status
+          return {
+            ...state,
+            questionsStatus                        
+          }
+        case 'SET_ANSWER':
+          answersStatus[action.index] = action.answer
+          return {
+            ...state,
+            answersStatus
+          }
         default:
             return state;
     }
