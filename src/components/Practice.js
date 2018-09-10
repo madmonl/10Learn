@@ -8,7 +8,7 @@ import Exam from './Exam';
 import { Send, ChevronRight } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
 import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions,
-  dispatchClearQuestionsStatus } from '../actions/exam';
+  dispatchClearQuestionsStatus, dispatchSetAnswersStatusToNone } from '../actions/exam';
 
 export const styles = theme => ({
   button: {
@@ -61,6 +61,7 @@ export class Practice extends Component {
 
   onReturn = () => {
     this.props.dispatchChangeQuestion(0);
+    this.props.dispatchSetAnswersStatusToNone();
     this.setState({ startExam: false });
   }
 
@@ -191,7 +192,8 @@ const mapDispatchToProps = dispatch => ({
   dispatchSetQuestions: (questions) => dispatch(dispatchSetQuestions(questions)),
   dispatchChangeQuestion: (index) => dispatch(dispatchChangeQuestion(index)), 
   dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
-  dispatchClearQuestionsStatus: () => dispatch(dispatchClearQuestionsStatus())
+  dispatchClearQuestionsStatus: () => dispatch(dispatchClearQuestionsStatus()),
+  dispatchSetAnswersStatusToNone: () => dispatch(dispatchSetAnswersStatusToNone())
 })
 
 export default compose(

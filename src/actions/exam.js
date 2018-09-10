@@ -42,3 +42,7 @@ export const dispatchSetGrade = grade => ({
   type: 'SET_GRADE',
   grade
 });
+
+export const dispatchSetAnswersStatusToNone = () => ({
+  type: 'SET_ANSWERS_STATUS_TO_NONE'
+});

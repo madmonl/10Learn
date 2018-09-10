@@ -74,6 +74,14 @@ export default (state = examState, action) => {
             ...state,
             grade: action.grade
           }
+        case 'SET_ANSWERS_STATUS_TO_NONE':
+          for (i = 0; i < 10; i++) {
+            answersStatus[i] = -1;
+          }
+          return {
+            ...state,
+            answersStatus
+          }
         default:
             return state;
     }

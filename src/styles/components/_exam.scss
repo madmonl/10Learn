@@ -61,6 +61,30 @@
   }
 }
 
+.exam__answer-correct {
+  background: rgb(34, 184, 34) !important;
+  &:hover {
+      cursor: auto !important;
+      background: #424242 !important;
+  }
+}
+
+.exam__answer-mistake {
+  background-color: rgb(199, 67, 44) !important;
+  &:hover {
+      cursor: auto !important;
+      background: #424242 !important;
+  }
+}
+
+.exam__answer-default {
+  background-color: #424242 !important;
+  &:hover {
+      cursor: initial !important;
+      background: #424242 !important;
+  }
+}
+
 .mjx-math * {
   color: white !important;
 }

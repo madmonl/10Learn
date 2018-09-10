@@ -121,12 +121,31 @@ export class Exam extends Component {
     this.props.dispatchChangeQuestion(0);
     this.setState({ open: false });
   }
+
+  solutionClassName = (index, questions, currQuestion, questionsStatus, answersStatus) => {
+    // one of:
+    // "exam__answer-item" when still in exam - clickable
+    // "exam__answer-correct" not clickable - correct solution only
+    // "exam__answer-mistake" only a mistaken solution that was chosen.
+    // "exam__answer-default" not clickable not chosen, not correct answer
+    if (questionsStatus[currQuestion] === 'being_answered') {
+      return "exam__answer-item"
+    } else if (questions[currQuestion].index === index) {
+      return "exam__answer-correct exam__answer-item"
+    } else if (questions[currQuestion].index !== index 
+      && answersStatus[currQuestion] === index) {
+      return "exam__answer-mistake exam__answer-item"
+    } else {
+      return "exam__answer-default exam__answer-item"
+    };
+  }
           
   render () {
     const { questions, currQuestion, classes, 
           answeredQuestions, questionsStatus, 
           answersStatus, grade } = this.props,
           { open } = this.state;
+
     return (
       <div className="exam">
         <div className="exam__upper-footer">
@@ -222,7 +241,9 @@ export class Exam extends Component {
         <div className="exam__answers">
           {questions[currQuestion].solutions.map((solution, index) =>
             <div 
-              className="exam__answer-item"
+              className={
+                this.solutionClassName(index, questions, currQuestion, questionsStatus, answersStatus)
+              }
               key={index}
               onClick={() => this.onSubmitQuestion(currQuestion, index)}
             >
