@@ -1,6 +1,7 @@
 let answeredQuestions = [], 
     answersStatus = [], 
-    questionsStatus = [];
+    questionsStatus = [],
+    prevExams = [];
 
 var i = 0;
 for (;i < 10; i++) {
@@ -93,6 +94,19 @@ export default (state = examState, action) => {
           return {
             ...state,
             answersStatus
+          }
+        case 'SET_EXAMS':
+          return {
+            ...state,
+            prevExams: action.prevExams
+          }
+        case 'ADD_EXAM':
+          return {
+            ...state,
+            prevExams: [
+              ...prevExams,
+              action.exam
+            ]
           }
         default:
             return state;

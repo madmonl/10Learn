@@ -1,4 +1,6 @@
 
+import db from '../firebase/firebase';
+
 // sets the currQuestion property to the new question index
 export const dispatchChangeQuestion = currQuestion => ({
   type: 'CHANGE_QUESTION',
@@ -65,3 +67,50 @@ export const dispatchSetGrade = grade => ({
 export const dispatchSetAnswersStatusToNone = () => ({
   type: 'SET_ANSWERS_STATUS_TO_NONE'
 });
+
+export const setExams = prevExams => ({
+  type: 'SET_EXAMS',
+  prevExams
+});
+
+export const startSetExams = () => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return db.ref(`users/${uid}/exams`).once('value').then((snapshot) => {
+            const exams = [];
+            
+            snapshot.forEach((childSnapshot) => {
+                exams.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+            dispatch(setExams(exams));
+        });
+    };
+};
+
+// ADD_EXPENSE
+export const addExam = exam => ({
+    type: 'ADD_EXAM',
+    exam
+});
+
+export const startAddExam = (examData = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        const {
+            questions = {}, 
+            answersStatus = [],
+            grade = 0
+        } = examData;
+        const exam = { questions, answersStatus, grade };
+
+        return db.ref(`users/${uid}/exams`).push(exam).then((ref) => {
+            dispatch(addExam({
+                id: ref.key,
+                ...exam
+            }));
+        });
+    };
+};

@@ -11,6 +11,7 @@ import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { green, grey } from '@material-ui/core/colors';
+import { startSetExams } from './actions/exam';
 
 export const theme = createMuiTheme({
   palette: {
@@ -51,10 +52,12 @@ ReactDOM.render(
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch(login(user.uid));
-    renderApp();
-    if (history.location.pathname === '/') {
-      history.push('/dashboard');
-    }
+    store.dispatch(startSetExams()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
   } else {
     store.dispatch(logout());
     renderApp();

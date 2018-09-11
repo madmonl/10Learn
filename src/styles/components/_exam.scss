@@ -29,6 +29,24 @@
   width: 425px;
 }
 
+.exam__modal-box {
+  background: #424242;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.exam__modal_message {
+  margin-top: 20px !important;
+}
+
+.exam__modal-buttons {
+  margin: 20px;
+
+}
+
 .exam__answers {
   
 }

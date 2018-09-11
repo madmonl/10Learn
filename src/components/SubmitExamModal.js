@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Done } from '@material-ui/icons';
 import styled from 'styled-components';
 import { dispatchChangeQuestion, dispatchChangeQuestionStatus, 
-  dispatchCleanMarkedQuestions, dispatchSetGrade } from '../actions/exam';
+  dispatchCleanMarkedQuestions, dispatchSetGrade, startAddExam } from '../actions/exam';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
@@ -19,23 +19,9 @@ export const styles = theme => ({
   button: {
     margin: theme.spacing.unit
   },
-  buttonSubmitExam: {
-    margin: theme.spacing.unit,
-    width: 64 * 2 + 20,
-    height: 36 * 2 + 20,
-    padding: 0,
-    margin: 0
-  },
   leftIcon: {
     marginLeft: theme.spacing.unit
-  },
-  paper: {
-    position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
+  }
 })
 
 export class SubmitExamModal extends Component {
@@ -51,14 +37,21 @@ export class SubmitExamModal extends Component {
 
   componentDidUpdate (prevProps) {
     if(prevProps.questionsStatus !== this.props.questionsStatus) {
-      this.props.dispatchSetGrade((this.props.questionsStatus.reduce((prevQuestionsStatuses, questionStatus) => {
+      const { questions, answersStatus } = this.props;
+      const grade = (this.props.questionsStatus.reduce((prevQuestionsStatuses, questionStatus) => {
         if (questionStatus === 'correct') {
           prevQuestionsStatuses.push(questionStatus);
           return prevQuestionsStatuses;
         } else {
           return prevQuestionsStatuses
         }
-      }, []).length / 10) * 100);   
+      }, []).length / 10) * 100;
+      this.props.dispatchSetGrade(grade);   
+      this.props.startAddExam({
+        questions,
+        answersStatus,
+        grade
+      })
     }
   }
   
@@ -71,7 +64,7 @@ export class SubmitExamModal extends Component {
         : 'mistake'
       );
     };
-    this.setState({ open: true });    
+    this.setState({ open: true });
   }
 
   onSpectateExamSolutions = () => {
@@ -97,7 +90,7 @@ export class SubmitExamModal extends Component {
           onClick={this.onSubmitExam} 
           variant="contained" 
           size="small" 
-          className={classes.buttonSubmitExam}
+          className="button--submit_exam"
         >            
           סיום מבחן
           <Done className={classes.IconLeft} />
@@ -110,18 +103,20 @@ export class SubmitExamModal extends Component {
           className="MuiModal-root-container"
         >
           <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-            <div style={getModalStyle()} className={classes.paper}>
-              <Typography variant="title" id="modal-title">
+            <div style={getModalStyle()} className={"exam__modal-box"}>
+              <Typography className="exam__modal_message" variant="title" id="modal-title">
                 הציון שלך הוא: {grade}
-              </Typography>                
-              <Button onClick={this.onSpectateExamSolutions} variant="contained" size="small" className={classes.button}>            
-                צפייה בתשובות
-                <Done className={classes.IconLeft} />
-              </Button>
-              <Button onClick={() => {}} variant="contained" size="small" className={classes.button}>            
-                מבחן חדש
-                <Done className={classes.IconLeft} />
-              </Button>
+              </Typography> 
+              <div className="exam__modal-buttons">               
+                <Button onClick={this.onSpectateExamSolutions} variant="contained" size="small" className={classes.button}>            
+                  צפייה בתשובות
+                  <Done className={classes.IconLeft} />
+                </Button>
+                <Button onClick={() => {}} variant="contained" size="small" className={classes.button}>            
+                  מבחן חדש
+                  <Done className={classes.IconLeft} />
+                </Button>
+              </div>
             </div>
           </Slide>
         </Modal>
@@ -134,7 +129,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchChangeQuestion: (question) => dispatch(dispatchChangeQuestion(question)),
     dispatchChangeQuestionStatus: (index, status) => dispatch(dispatchChangeQuestionStatus(index, status)),
     dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
-    dispatchSetGrade: (grade) => dispatch(dispatchSetGrade(grade))
+    dispatchSetGrade: (grade) => dispatch(dispatchSetGrade(grade)),
+    startAddExam: (exam) => dispatch(startAddExam(exam))
 });
 
 const mapStateToProps = (state) => ({
