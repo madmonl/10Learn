@@ -99,15 +99,8 @@ export class NumbersNavigation extends Component {
 const mapDispatchToProps = (dispatch) => ({
     dispatchChangeQuestion: (question) => dispatch(dispatchChangeQuestion(question)),
 });
-
-const mapStateToProps = (state) => ({
-    questions: state.exam.questions,
-    currQuestion: state.exam.currQuestion,
-    answeredQuestions: state.exam.answeredQuestions,
-    questionsStatus: state.exam.questionsStatus
-});
   
 export default compose(
   withStyles(styles), 
-  connect(mapStateToProps, mapDispatchToProps))
+  connect(undefined, mapDispatchToProps))
   (NumbersNavigation);

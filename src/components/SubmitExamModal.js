@@ -37,7 +37,7 @@ export class SubmitExamModal extends Component {
 
   componentDidUpdate (prevProps) {
     if(prevProps.questionsStatus !== this.props.questionsStatus) {
-      const { questions, answersStatus } = this.props;
+      const { questions, answersStatus, questionsStatus, selectedSubjects } = this.props;
       const grade = (this.props.questionsStatus.reduce((prevQuestionsStatuses, questionStatus) => {
         if (questionStatus === 'correct') {
           prevQuestionsStatuses.push(questionStatus);
@@ -49,7 +49,9 @@ export class SubmitExamModal extends Component {
       this.props.dispatchSetGrade(grade);   
       this.props.startAddExam({
         questions,
+        questionsStatus,
         answersStatus,
+        selectedSubjects,
         grade
       })
     }
@@ -138,6 +140,7 @@ const mapStateToProps = (state) => ({
     answeredQuestions: state.exam.answeredQuestions,
     questionsStatus: state.exam.questionsStatus,
     answersStatus: state.exam.answersStatus,
+    selectedSubjects: state.exam.selectedSubjects,
     grade: state.exam.grade
 });
 

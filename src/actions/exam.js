@@ -68,6 +68,11 @@ export const dispatchSetAnswersStatusToNone = () => ({
   type: 'SET_ANSWERS_STATUS_TO_NONE'
 });
 
+export const dispatchSetSelectedSubjects = selectedSubjects => ({
+  type: 'SET_SELECTED_SUBJECTS',
+  selectedSubjects
+})
+
 export const setExams = prevExams => ({
   type: 'SET_EXAMS',
   prevExams
@@ -102,9 +107,11 @@ export const startAddExam = (examData = {}) => {
         const {
             questions = {}, 
             answersStatus = [],
+            questionsStatus = [],
+            selectedSubjects,
             grade = 0
         } = examData;
-        const exam = { questions, answersStatus, grade };
+        const exam = { questions, answersStatus, questionsStatus, selectedSubjects, grade };
 
         return db.ref(`users/${uid}/exams`).push(exam).then((ref) => {
             dispatch(addExam({

@@ -95,6 +95,11 @@ export default (state = examState, action) => {
             ...state,
             answersStatus
           }
+        case 'SET_SELECTED_SUBJECTS':
+          return {
+            ...state,
+            selectedSubjects: action.selectedSubjects
+          }
         case 'SET_EXAMS':
           return {
             ...state,
@@ -104,7 +109,7 @@ export default (state = examState, action) => {
           return {
             ...state,
             prevExams: [
-              ...prevExams,
+              ...state.prevExams,
               action.exam
             ]
           }

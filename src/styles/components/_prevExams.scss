@@ -1,0 +1,9 @@
+.prevExams {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid lighten(hsl(122, 39%, 49%), 30%);
+}
+
+.prevExam {
+  border-bottom: 1px solid lighten(hsl(122, 39%, 49%), 30%);
+}
