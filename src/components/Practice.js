@@ -8,7 +8,8 @@ import Exam from './Exam';
 import { Send, ChevronRight } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
 import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions,
-  dispatchClearQuestionsStatus, dispatchSetAnswersStatusToNone } from '../actions/exam';
+  dispatchClearQuestionsStatus, dispatchSetAnswersStatusToNone, 
+  dispatchClearAnswersStatus } from '../actions/exam';
 
 export const styles = theme => ({
   button: {
@@ -62,6 +63,7 @@ export class Practice extends Component {
   onReturn = () => {
     this.props.dispatchChangeQuestion(0);
     this.props.dispatchSetAnswersStatusToNone();
+    this.props.dispatchClearQuestionsStatus();
     this.setState({ startExam: false });
   }
 
@@ -107,6 +109,7 @@ export class Practice extends Component {
     this.props.dispatchCleanMarkedQuestions();
     this.props.dispatchChangeQuestion(0);
     this.props.dispatchClearQuestionsStatus();
+    this.props.dispatchClearAnswersStatus();
     // TODO clear answers status to -1 as well
   }
 
@@ -193,7 +196,8 @@ const mapDispatchToProps = dispatch => ({
   dispatchChangeQuestion: (index) => dispatch(dispatchChangeQuestion(index)), 
   dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
   dispatchClearQuestionsStatus: () => dispatch(dispatchClearQuestionsStatus()),
-  dispatchSetAnswersStatusToNone: () => dispatch(dispatchSetAnswersStatusToNone())
+  dispatchSetAnswersStatusToNone: () => dispatch(dispatchSetAnswersStatusToNone()),
+  dispatchClearAnswersStatus: () => dispatch(dispatchClearAnswersStatus())
 })
 
 export default compose(

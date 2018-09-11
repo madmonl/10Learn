@@ -28,18 +28,15 @@ export default (state = examState, action) => {
             ...state,
             questions: action.questions
           };
-          return obj;
-        case 'CHANGE_NAVIGATION_BUTTON_COLOR':
-          answeredQuestions[action.index] = true;
-          return {
-            ...state,
-            answeredQuestions
-          };     
+          return obj;  
         case 'MARK_QUESTION':
-          answeredQuestions[action.index] = true;
           return {
             ...state,
-            answeredQuestions
+            answeredQuestions: [
+              ...state.answeredQuestions.slice(0, action.index),
+              true,
+              ...state.answeredQuestions.slice(action.index + 1)
+            ]
           }
         case 'CLEAN_MARKED_QUESTIONS':
           for (i = 0; i < 10; i++) {
@@ -50,10 +47,14 @@ export default (state = examState, action) => {
             answeredQuestions
           }
         case 'CHANGE_QUESTION_STATUS':
-          questionsStatus[action.index] = action.status
+          // questionsStatus[action.index] = action.status
           return {
             ...state,
-            questionsStatus                        
+            questionsStatus: [
+              ...state.questionsStatus.slice(0, action.index),
+              action.status,
+              ...state.questionsStatus.slice(action.index + 1)
+            ]                       
           }
         case 'CLEAR_QUESTIONS_STATUS':
           for (i = 0; i < 10; i++) {
@@ -63,11 +64,22 @@ export default (state = examState, action) => {
             ...state,
             questionsStatus                        
           }
-        case 'SET_ANSWER':
-          answersStatus[action.index] = action.answer
+        case 'CLEAR_ANSWERS_STATUS':
+          for (i = 0; i < 10; i++) {
+            answersStatus[i] = -1;
+          }
           return {
             ...state,
-            answersStatus
+            answersStatus                        
+          }
+        case 'SET_ANSWER':
+          return {
+            ...state,
+            answersStatus: [
+              ...state.answersStatus.slice(0, action.index),
+              action.answer,
+              ...state.answersStatus.slice(action.index + 1)
+            ]
           }
         case 'SET_GRADE':
           return {
