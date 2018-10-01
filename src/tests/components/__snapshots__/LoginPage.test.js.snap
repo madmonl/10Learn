@@ -15,11 +15,26 @@ exports[`should correctly render LoginPage 1`] = `
     <p>
       Tag line for app.
     </p>
-    <button
-      className="button"
+    <div
+      className="login_buttons"
     >
-      Login with Google
-    </button>
+      <button
+        className="button button--google_login"
+      >
+        היכנסו עם גוגל
+      </button>
+      <button
+        className="button button--facebook_login"
+      >
+        היכנסו עם פייסבוק
+      </button>
+      <Link
+        replace={false}
+        to="/dashboard"
+      >
+        הירשמ/י כאורח/ת
+      </Link>
+    </div>
   </div>
 </div>
 `;

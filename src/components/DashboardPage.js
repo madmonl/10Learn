@@ -5,11 +5,11 @@ import PrevExams from './PrevExams';
 import Practice from './Practice';
 import { connect } from 'react-redux';
 
-const DashboardPage = ({ currTab }) => (
-  <Fragment>
+export const DashboardPage = ({ currTab }) => (
+  <div>
     {currTab === 'תרגול' && <Practice/>}
     {currTab === 'מבחנים קודמים' && <PrevExams/>}
-  </Fragment>
+  </div>
 );
 
 

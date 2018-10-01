@@ -113,6 +113,11 @@ export default (state = examState, action) => {
               action.exam
             ]
           }
+        case 'CHANGE_EXAM':
+          return {
+            ...state,
+            ...action.exam
+          }
         default:
             return state;
     }

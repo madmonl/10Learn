@@ -39,7 +39,7 @@ export class ExamBody extends Component {
     const { questions, currQuestion, questionsStatus, answersStatus } = this.props;
     
     return (
-      <Fragment>
+      <div>
         <div className="exam__question-navigation-container">
           <div className="exam__question">
             <MathJax.Provider>
@@ -66,7 +66,7 @@ export class ExamBody extends Component {
             </div>             
           )}
         </div>
-      </Fragment>
+      </div>
     )
   }
 }

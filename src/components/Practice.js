@@ -16,7 +16,8 @@ export const styles = theme => ({
     margin: theme.spacing.unit,
   },
   paper: { 
-    height: '550px',
+    overflowY: 'auto',
+    height: '900px',
     marginTop: '5px'
   },
   formControl: {
@@ -146,7 +147,7 @@ export class Practice extends Component {
             )
           }
           { !startExam
-              ? <Fragment>
+              ? <div>
                   <Typography
                     variant="subheading"
                     style={{ marginTop: 20 }}
@@ -178,7 +179,7 @@ export class Practice extends Component {
                     התחל מבחן
                     <Send className={classes.rightIcon} />
                   </Button>
-                </Fragment>                
+                </div>                
               : <Exam />
           }
         </Paper>

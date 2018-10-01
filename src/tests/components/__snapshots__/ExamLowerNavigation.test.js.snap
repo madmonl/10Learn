@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render ExamLowerNavigation correctly 1`] = `
+<div>
+  <div
+    className="exam__navigation-container"
+  >
+    <WithStyles(Button)
+      color="primary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      <pure(SendIcon) />
+      שאלה קודמת
+    </WithStyles(Button)>
+    <WithStyles(Button)
+      color="primary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      שאלה הבאה
+      <pure(SendIcon) />
+    </WithStyles(Button)>
+  </div>
+</div>
+`;

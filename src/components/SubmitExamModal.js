@@ -87,7 +87,7 @@ export class SubmitExamModal extends Component {
           { open } = this.state;
           
     return (
-      <Fragment>
+      <div>
         <Button 
           onClick={this.onSubmitExam} 
           variant="contained" 
@@ -122,7 +122,7 @@ export class SubmitExamModal extends Component {
             </div>
           </Slide>
         </Modal>
-      </Fragment>
+      </div>
     );
   };
 };

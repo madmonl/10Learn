@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render ButtonAppBar correctly 1`] = `
+<div>
+  <WithStyles(AppBar)
+    color="default"
+    position="static"
+  >
+    <div
+      className="app-bar-header__theme"
+    >
+      <div
+        className="content-container"
+      >
+        <Styled(WithStyles(Toolbar))>
+          <Styled(WithStyles(Typography))
+            color="textPrimary"
+            variant="display2"
+          >
+            10Learn
+          </Styled(WithStyles(Typography))>
+          <div
+            className="app-bar-header"
+          >
+            <WithStyles(Tabs)
+              indicatorColor="secondary"
+              onChange={[Function]}
+              value={-1}
+            >
+              <WithStyles(Tab)
+                label={
+                  <span
+                    className="app-bar-header__tab"
+                  >
+                    <pure(EditIcon)
+                      className="app-bar-header__icon"
+                    />
+                    <Styled(WithStyles(Typography))
+                      color="textPrimary"
+                      variant="title"
+                    >
+                      תרגול
+                    </Styled(WithStyles(Typography))>
+                  </span>
+                }
+              />
+              <WithStyles(Tab)
+                label={
+                  <span
+                    className="app-bar-header__tab"
+                  >
+                    <pure(FolderIcon)
+                      className="app-bar-header__icon"
+                    />
+                    <Styled(WithStyles(Typography))
+                      color="textPrimary"
+                      variant="title"
+                    >
+                      מבחנים קודמים
+                    </Styled(WithStyles(Typography))>
+                  </span>
+                }
+              />
+            </WithStyles(Tabs)>
+            <WithStyles(Button)
+              onClick={[Function]}
+              size="medium"
+            >
+              <pure(PowerSettingsNewIcon) />
+              התנתק
+            </WithStyles(Button)>
+          </div>
+        </Styled(WithStyles(Toolbar))>
+      </div>
+    </div>
+  </WithStyles(AppBar)>
+</div>
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render ExamUpperNavigation correctly 1`] = `
+<div
+  className="exam__upper-footer"
+>
+  <WithStyles(Connect(NumbersNavigation)) />
+  <WithStyles(Connect(SubmitExamModal)) />
+</div>
+`;

@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render ExamBody correctly 1`] = `
+<div>
+  <div
+    className="exam__question-navigation-container"
+  >
+    <div
+      className="exam__question"
+    >
+      <MathJaxProvider
+        options={
+          Object {
+            "showMathMenu": false,
+            "showMathMenuMSIE": false,
+            "tex2jax": Object {
+              "inlineMath": Array [],
+            },
+          }
+        }
+        script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+      >
+        <div>
+          <MathJaxNode
+            formula="1 + 2 = ?"
+          />
+        </div>
+      </MathJaxProvider>
+    </div>
+  </div>
+  <div
+    className="exam__answers"
+  >
+    <div
+      className="exam__answer-default exam__answer-item"
+      key="0"
+      onClick={[Function]}
+    >
+      <MathJaxProvider
+        options={
+          Object {
+            "showMathMenu": false,
+            "showMathMenuMSIE": false,
+            "tex2jax": Object {
+              "inlineMath": Array [],
+            },
+          }
+        }
+        script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+      >
+        <div>
+          <MathJaxNode
+            formula={1}
+          />
+        </div>
+      </MathJaxProvider>
+    </div>
+    <div
+      className="exam__answer-correct exam__answer-item"
+      key="1"
+      onClick={[Function]}
+    >
+      <MathJaxProvider
+        options={
+          Object {
+            "showMathMenu": false,
+            "showMathMenuMSIE": false,
+            "tex2jax": Object {
+              "inlineMath": Array [],
+            },
+          }
+        }
+        script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+      >
+        <div>
+          <MathJaxNode
+            formula={3}
+          />
+        </div>
+      </MathJaxProvider>
+    </div>
+    <div
+      className="exam__answer-default exam__answer-item"
+      key="2"
+      onClick={[Function]}
+    >
+      <MathJaxProvider
+        options={
+          Object {
+            "showMathMenu": false,
+            "showMathMenuMSIE": false,
+            "tex2jax": Object {
+              "inlineMath": Array [],
+            },
+          }
+        }
+        script="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+      >
+        <div>
+          <MathJaxNode
+            formula={4}
+          />
+        </div>
+      </MathJaxProvider>
+    </div>
+  </div>
+</div>
+`;

@@ -31,7 +31,7 @@ export class ExamLowerNavigation extends Component {
         ? this.props.questions.length - 1
         : this.props.currQuestion - 1)
     } else if (direction === 'next') {
-      this.props.dispatchChangeQuestion((this.props.currQuestion + 1) % 10)
+      this.props.dispatchChangeQuestion((this.props.currQuestion + 1) % this.props.questions.length)
     } else {
       throw "Button direction is incorrect.";
     }
@@ -41,7 +41,7 @@ export class ExamLowerNavigation extends Component {
     const { questions, currQuestion, classes } = this.props;
     
     return (
-      <Fragment>
+      <div>
         <div className="exam__navigation-container">
           <Button 
             variant="contained" 
@@ -62,7 +62,7 @@ export class ExamLowerNavigation extends Component {
             <Send className={classes.leftIcon} />
           </Button>
         </div>
-      </Fragment>
+      </div>
     )
   }
 }

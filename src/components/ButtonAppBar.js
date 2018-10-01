@@ -26,21 +26,22 @@ const TypographyCSS = styled(Typography)`
   font: italic bold Georgia;
 `;
 
-const styles = {
+const styles = theme => ({
   button: {
     size: 70,
     width: 100,
     fontSize: 15
   }
-};
+});
 
 export class ButtonAppBar extends Component {
   constructor(props) {
-     super(props);
+    super(props);
+    this.state = {
+      appBarTabsIndex: 0
     }
-  
-  state = {
-    appBarTabsIndex: 0
+    this.logout = this.logout.bind(this);
+    this.onIndexSelect = this.onIndexSelect.bind(this);
   }
   
   logout = () => {
@@ -100,10 +101,6 @@ export class ButtonAppBar extends Component {
     );
   };
 }
-
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const mapDispatchToProps = (dispatch) => ({
     startLogout: () => dispatch(startLogout()),
