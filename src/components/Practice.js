@@ -44,6 +44,7 @@ export class Practice extends Component {
     this.onChange = this.onChange.bind(this);
     this.onStartExamClick = this.onStartExamClick.bind(this);
     this.onDeleteChip = this.onDeleteChip.bind(this);
+    this.onReturn = this.onReturn.bind(this);
   }
 
   onChange = subject => {
