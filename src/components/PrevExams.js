@@ -39,6 +39,7 @@ export class PrevExams extends Component {
 
   changeExamModal = exam => {
     this.setState({ open: true, modalExam: exam });
+    // needed because <Exam /> is being rendered and it's values are taken from the store.
     this.props.dispatchChangeExam(exam);
   }
   render () {

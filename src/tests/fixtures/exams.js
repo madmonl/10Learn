@@ -5,7 +5,7 @@ let answeredQuestions = [],
 var i = 0;
 for (;i < 10; i++) {
   answeredQuestions[i] = false;
-  questionsStatus[i] = 'being_answered';
+  questionsStatus[i] = 'mistake';
   answersStatus[i] = -1;
 }
 
@@ -17,6 +17,87 @@ export default [
     questionsStatus: questionsStatus,
     answersStatus: answersStatus,
     questions: [{
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
+      question: '1 + 2 = ?',
+      solutions: [
+        1,
+        3,
+        4
+      ],
+      index: 1
+    },
+  {
       question: '1 + 2 = ?',
       solutions: [
         1,

@@ -24,10 +24,10 @@ test('should render ExamLowerNavigation correctly', () => {
 
 test('should call prev question on click correctly', () => {
   wrapper.find(Button).at(0).prop('onClick')();
-  expect(dispatchChangeQuestion).toHaveBeenCalledWith(0);
+  expect(dispatchChangeQuestion).toHaveBeenCalledWith(9);
 });
 
 test('should call next question on click correctly', () => {
   wrapper.find(Button).at(1).prop('onClick')();
-  expect(dispatchChangeQuestion).toHaveBeenCalledWith(0);
+  expect(dispatchChangeQuestion).toHaveBeenCalledWith(1);
 });

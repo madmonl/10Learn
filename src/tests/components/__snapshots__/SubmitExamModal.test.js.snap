@@ -1,0 +1,373 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render SubmitExamModal correctly 1`] = `
+<SubmitExamModal
+  answeredQuestions={
+    Array [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ]
+  }
+  answersStatus={
+    Array [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+    ]
+  }
+  classes={Object {}}
+  dispatchChangeQuestion={[Function]}
+  dispatchChangeQuestionStatus={[Function]}
+  dispatchCleanMarkedQuestions={[Function]}
+  dispatchSetGrade={[Function]}
+  grade={undefined}
+  questions={
+    Array [
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "index": 1,
+        "question": "1 + 2 = ?",
+        "solutions": Array [
+          1,
+          3,
+          4,
+        ],
+      },
+    ]
+  }
+  questionsStatus={
+    Array [
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+      "mistake",
+    ]
+  }
+  startAddExam={[Function]}
+>
+  <div>
+    <WithStyles(Button)
+      className="button--submit_exam"
+      onClick={[Function]}
+      size="small"
+      variant="contained"
+    >
+      <Button
+        className="button--submit_exam"
+        classes={
+          Object {
+            "colorInherit": "MuiButton-colorInherit-22",
+            "contained": "MuiButton-contained-12",
+            "containedPrimary": "MuiButton-containedPrimary-13",
+            "containedSecondary": "MuiButton-containedSecondary-14",
+            "disabled": "MuiButton-disabled-21",
+            "extendedFab": "MuiButton-extendedFab-19",
+            "fab": "MuiButton-fab-18",
+            "flat": "MuiButton-flat-6",
+            "flatPrimary": "MuiButton-flatPrimary-7",
+            "flatSecondary": "MuiButton-flatSecondary-8",
+            "focusVisible": "MuiButton-focusVisible-20",
+            "fullWidth": "MuiButton-fullWidth-26",
+            "label": "MuiButton-label-2",
+            "mini": "MuiButton-mini-23",
+            "outlined": "MuiButton-outlined-9",
+            "outlinedPrimary": "MuiButton-outlinedPrimary-10",
+            "outlinedSecondary": "MuiButton-outlinedSecondary-11",
+            "raised": "MuiButton-raised-15",
+            "raisedPrimary": "MuiButton-raisedPrimary-16",
+            "raisedSecondary": "MuiButton-raisedSecondary-17",
+            "root": "MuiButton-root-1",
+            "sizeLarge": "MuiButton-sizeLarge-25",
+            "sizeSmall": "MuiButton-sizeSmall-24",
+            "text": "MuiButton-text-3",
+            "textPrimary": "MuiButton-textPrimary-4",
+            "textSecondary": "MuiButton-textSecondary-5",
+          }
+        }
+        color="default"
+        component="button"
+        disableFocusRipple={false}
+        disabled={false}
+        fullWidth={false}
+        mini={false}
+        onClick={[Function]}
+        size="small"
+        type="button"
+        variant="contained"
+      >
+        <WithStyles(ButtonBase)
+          className="MuiButton-root-1 MuiButton-contained-12 MuiButton-raised-15 MuiButton-sizeSmall-24 button--submit_exam"
+          component="button"
+          disabled={false}
+          focusRipple={true}
+          focusVisibleClassName="MuiButton-focusVisible-20"
+          onClick={[Function]}
+          type="button"
+        >
+          <ButtonBase
+            centerRipple={false}
+            className="MuiButton-root-1 MuiButton-contained-12 MuiButton-raised-15 MuiButton-sizeSmall-24 button--submit_exam"
+            classes={
+              Object {
+                "disabled": "MuiButtonBase-disabled-28",
+                "focusVisible": "MuiButtonBase-focusVisible-29",
+                "root": "MuiButtonBase-root-27",
+              }
+            }
+            component="button"
+            disableRipple={false}
+            disableTouchRipple={false}
+            disabled={false}
+            focusRipple={true}
+            focusVisibleClassName="MuiButton-focusVisible-20"
+            onClick={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            <button
+              className="MuiButtonBase-root-27 MuiButton-root-1 MuiButton-contained-12 MuiButton-raised-15 MuiButton-sizeSmall-24 button--submit_exam"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              <span
+                className="MuiButton-label-2"
+              >
+                סיום מבחן
+                <pure(DoneIcon)
+                  className={undefined}
+                >
+                  <DoneIcon
+                    className={undefined}
+                  >
+                    <WithStyles(SvgIcon)
+                      className={undefined}
+                    >
+                      <SvgIcon
+                        className={undefined}
+                        classes={
+                          Object {
+                            "colorAction": "MuiSvgIcon-colorAction-33",
+                            "colorDisabled": "MuiSvgIcon-colorDisabled-35",
+                            "colorError": "MuiSvgIcon-colorError-34",
+                            "colorPrimary": "MuiSvgIcon-colorPrimary-31",
+                            "colorSecondary": "MuiSvgIcon-colorSecondary-32",
+                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit-36",
+                            "root": "MuiSvgIcon-root-30",
+                          }
+                        }
+                        color="inherit"
+                        component="svg"
+                        fontSize="default"
+                        viewBox="0 0 24 24"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="MuiSvgIcon-root-30"
+                          color={undefined}
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M0 0h24v24H0z"
+                            fill="none"
+                          />
+                          <path
+                            d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
+                          />
+                        </svg>
+                      </SvgIcon>
+                    </WithStyles(SvgIcon)>
+                  </DoneIcon>
+                </pure(DoneIcon)>
+              </span>
+              <WithStyles(TouchRipple)
+                center={false}
+                innerRef={[Function]}
+              >
+                <TouchRipple
+                  center={false}
+                  classes={
+                    Object {
+                      "child": "MuiTouchRipple-child-41",
+                      "childLeaving": "MuiTouchRipple-childLeaving-42",
+                      "childPulsate": "MuiTouchRipple-childPulsate-43",
+                      "ripple": "MuiTouchRipple-ripple-38",
+                      "ripplePulsate": "MuiTouchRipple-ripplePulsate-40",
+                      "rippleVisible": "MuiTouchRipple-rippleVisible-39",
+                      "root": "MuiTouchRipple-root-37",
+                    }
+                  }
+                >
+                  <TransitionGroup
+                    childFactory={[Function]}
+                    className="MuiTouchRipple-root-37"
+                    component="span"
+                    enter={true}
+                    exit={true}
+                  >
+                    <span
+                      className="MuiTouchRipple-root-37"
+                    />
+                  </TransitionGroup>
+                </TouchRipple>
+              </WithStyles(TouchRipple)>
+            </button>
+          </ButtonBase>
+        </WithStyles(ButtonBase)>
+      </Button>
+    </WithStyles(Button)>
+    <WithStyles(Modal)
+      aria-describedby="simple-modal-description"
+      aria-labelledby="simple-modal-title"
+      className="MuiModal-root-container"
+      onClose={[Function]}
+      open={false}
+    >
+      <Modal
+        BackdropComponent={[Function]}
+        aria-describedby="simple-modal-description"
+        aria-labelledby="simple-modal-title"
+        className="MuiModal-root-container"
+        classes={
+          Object {
+            "hidden": "MuiModal-hidden-45",
+            "root": "MuiModal-root-44",
+          }
+        }
+        disableAutoFocus={false}
+        disableBackdropClick={false}
+        disableEnforceFocus={false}
+        disableEscapeKeyDown={false}
+        disablePortal={false}
+        disableRestoreFocus={false}
+        hideBackdrop={false}
+        keepMounted={false}
+        manager={
+          ModalManager {
+            "containers": Array [],
+            "data": Array [],
+            "handleContainerOverflow": true,
+            "hideSiblingNodes": true,
+            "modals": Array [],
+          }
+        }
+        onClose={[Function]}
+        open={false}
+      />
+    </WithStyles(Modal)>
+  </div>
+</SubmitExamModal>
+`;

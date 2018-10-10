@@ -121,4 +121,6 @@ export default (state = examState, action) => {
         default:
             return state;
     }
-};
+  };
+  
+export { examState };

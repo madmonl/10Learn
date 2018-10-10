@@ -1,3 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render DashboardPage correctly 1`] = `<div />`;
+exports[`should render DashboardPage correctly 1`] = `
+<div>
+  <Component />
+  <Component />
+</div>
+`;

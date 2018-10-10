@@ -77,7 +77,7 @@ export class SubmitExamModal extends Component {
     this.setState({ open: false });
   }
 
-  onModalClose = (questionsStatus) => {
+  onModalClose = () => {
     // Close Modal
     this.setState({ open: false })
   }
@@ -101,7 +101,7 @@ export class SubmitExamModal extends Component {
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={open}
-          onClose={() => this.onModalClose(questionsStatus)}
+          onClose={() => this.onModalClose()}
           className="MuiModal-root-container"
         >
           <Slide direction="up" in={open} mountOnEnter unmountOnExit>

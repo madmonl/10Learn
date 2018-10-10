@@ -1,0 +1,15 @@
+***************** important notes ***************
+
+#################    unit tests   ###############
+
+-- about mount shallow and render:
+-when mounting also child nodes are fully rendered.
+when state changes there is a need in wrapper.update
+in order of fully rendering the component with respect of
+the new state values.
+-when mounting- one is not able to reach the state of the 
+component since it is a HOC already and bla bla bla, so
+mount(shallow.get(0)) should work, but then there is a problem
+with something else that you will have to find out cause I can't 
+recall- but when you will- solutions is to split tests :)
+-if using Button.onClick mount is needed for full child rendering.
