@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import Exam from './Exam';
-import { Send, ChevronRight } from '@material-ui/icons';
+import { ArrowBack, ChevronRight } from '@material-ui/icons';
 import QuestionGenerator from './QuestionGenerator';
 import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions,
   dispatchClearQuestionsStatus, dispatchSetAnswersStatusToNone, 
@@ -163,7 +163,7 @@ export class Practice extends Component {
                               control={
                                 <Checkbox key={subject} checked={selectedSubjects.includes(subject)} onChange={() => this.onChange(subject)} value={subject} />
                               }
-                              label={subject}
+                              label={<span className="checkboxLabel">{subject}</span>}
                             />
                           ))
                         }
@@ -178,10 +178,10 @@ export class Practice extends Component {
                     onClick={this.onStartExamClick}
                   >
                     התחל מבחן
-                    <Send className={classes.rightIcon} />
+                    <ArrowBack className={classes.rightIcon} />
                   </Button>
                 </div>                
-              : <Exam />
+              : <Exam displaySubmitExamButton={true}/>
           }
         </Paper>
       </div>

@@ -43,53 +43,57 @@ export class PrevExams extends Component {
     this.props.dispatchChangeExam(exam);
   }
   render () {
-    const { classes, prevExams } = this.props,
+    const { classes, prevExams, uid } = this.props,
           { open, modalExam } = this.state
     
     return (
       <div className="content-container">
         <Paper className={classes.paper}>
-          <div className="prevExams">
-            {prevExams.map((exam) => 
-              <div
-                className="prevExam"
-                key={exam.id}
-                onClick={() => this.changeExamModal(exam)}
+        {          
+          uid 
+          ? <div className="prevExams">
+              {prevExams.map((exam) => 
+                <div
+                  className="prevExam"
+                  key={exam.id}
+                  onClick={() => this.changeExamModal(exam)}
+                >
+                  <div>
+                    {exam.selectedSubjects.map((subject, index) =>
+                      <Chip 
+                        key={index}
+                        label={<span className="chipLabel">{subject}</span>}
+                        className={classes.chip}
+                        color="primary"
+                        variant="outlined"
+                      />
+                    )}
+                  </div>
+                  <NumbersNavigation               
+                    questions={exam.questions}
+                    currQuestion={0}
+                    answeredQuestions={[]}
+                    questionsStatus={exam.questionsStatus}  
+                  />                
+                </div>            
+              )}
+              <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={open}
+                onClose={() => this.setState({ open: false })}
+                className="MuiModal-root-container"
               >
-                <div>
-                  {exam.selectedSubjects.map((subject, index) =>
-                    <Chip 
-                      key={index}
-                      label={subject}
-                      className={classes.chip}
-                      color="primary"
-                      variant="outlined"
-                    />
-                  )}
-                </div>
-                <NumbersNavigation               
-                  questions={exam.questions}
-                  currQuestion={0}
-                  answeredQuestions={[]}
-                  questionsStatus={exam.questionsStatus}  
-                />                
-              </div>            
-            )}
-            <Modal
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-              open={open}
-              onClose={() => this.setState({ open: false })}
-              className="MuiModal-root-container"
-            >
-              <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-                <div style={getModalStyle()} className="exam__modal-box">
-                  <Exam />
-                </div>
-              </Slide>
-            </Modal>      
-          </div>
-        </Paper>
+                <Slide direction="up" in={open} mountOnEnter unmountOnExit>
+                  <div style={getModalStyle()} className="exam__modal-box">
+                    <Exam />
+                  </div>
+                </Slide>
+              </Modal>      
+            </div>                             
+          : <p>התחבר/י בשביל לראות מבחנים קודמים</p>
+        }
+        </Paper> 
       </div>
     );
   };
@@ -98,8 +102,10 @@ export class PrevExams extends Component {
 const mapDispatchToProps = dispatch => ({
   dispatchChangeExam: (exam) => dispatch(dispatchChangeExam(exam))
 });
+
 const mapStateToProps = (state) => ({
-  prevExams: state.exam.prevExams
+  prevExams: state.exam.prevExams,
+  uid: state.auth.uid
 })
 
 export default compose(

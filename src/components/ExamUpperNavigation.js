@@ -7,7 +7,9 @@ import SubmitExamModal from './SubmitExamModal';
 
 
 export const ExamUpperNavigation = props => {
-  const { questions, currQuestion, answeredQuestions, questionsStatus } = props
+  const { questions, currQuestion, answeredQuestions, 
+    questionsStatus, displaySubmitExamButton } = props;
+
   return(
     <div className="exam__upper-footer">
       <NumbersNavigation 
@@ -16,7 +18,7 @@ export const ExamUpperNavigation = props => {
         answeredQuestions={answeredQuestions}
         questionsStatus={questionsStatus}
       />
-      <SubmitExamModal />
+      { displaySubmitExamButton && <SubmitExamModal /> }
     </div>
   );
 }

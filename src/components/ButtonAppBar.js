@@ -77,13 +77,13 @@ export class ButtonAppBar extends Component {
                       >
                         <Tab label={<span className="app-bar-header__tab">
                           <Edit className="app-bar-header__icon" />
-                          <TypographyTABS color="textPrimary" variant="title">
+                          <TypographyTABS className="app-bar-header__text" color="textPrimary" variant="title">
                             תרגול
                           </TypographyTABS>
                         </span>} />
                         <Tab label={<span className="app-bar-header__tab">
                           <Folder className="app-bar-header__icon" />
-                          <TypographyTABS color="textPrimary" variant="title">
+                          <TypographyTABS className="app-bar-header__text" color="textPrimary" variant="title">
                             מבחנים קודמים
                           </TypographyTABS>
                         </span>} />

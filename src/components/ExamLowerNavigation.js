@@ -3,7 +3,7 @@ import React, { Fragment, Component } from 'react';
 import { dispatchChangeQuestion } from '../actions/exam';
 import { Button } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
-import { Send } from '@material-ui/icons';
+import { ArrowForward, ArrowBack } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
@@ -15,7 +15,7 @@ export const styles = theme => ({
     marginLeft: theme.spacing.unit
   },
   leftIcon: {
-    marginLeft: theme.spacing.unit
+    marginRight: theme.spacing.unit
   }
 })
 
@@ -49,7 +49,7 @@ export class ExamLowerNavigation extends Component {
             className={classes.button}
             onClick={() => this.onQuestionChange('prev')}
           >
-            <Send className={classes.rightIcon} />
+            <ArrowForward className={classes.rightIcon} />
             שאלה קודמת            
           </Button>
           <Button 
@@ -59,7 +59,7 @@ export class ExamLowerNavigation extends Component {
             onClick={() => this.onQuestionChange('next')}
           >
             שאלה הבאה
-            <Send className={classes.leftIcon} />
+            <ArrowBack className={classes.leftIcon} />
           </Button>
         </div>
       </div>

@@ -31,9 +31,42 @@ test('clean marked questions', () => {
       type: 'CLEAN_MARKED_QUESTIONS',
   };
 
-  const state = examReducer(undefined, action);
+  const state = examReducer({ 
+    ...examState, 
+    answeredQuestions: [
+      true,
+      ...examState.answeredQuestions.slice(1, examState.answeredQuestions.length)
+    ]
+  }, action);
   state.answeredQuestions.forEach((answered) => {
-    expect(status).toBe(false);
+    expect(answered).toBe(false);
   })
 });
 
+test('change question status', () => {
+  const action = {
+      type: 'CHANGE_QUESTION_STATUS',
+      index: 0,
+      status: 'correct'
+  };
+
+  const state = examReducer(undefined, action);
+  expect(state.questionsStatus[0]).toBe('correct');
+});
+
+test('clean marked questions', () => {
+  const action = {
+      type: 'CLEAN_MARKED_QUESTIONS',
+  };
+
+  const state = examReducer({ 
+    ...examState, 
+    answeredQuestions: [
+      true,
+      ...examState.answeredQuestions.slice(1, examState.answeredQuestions.length)
+    ]
+  }, action);
+  state.answeredQuestions.forEach((answered) => {
+    expect(answered).toBe(false);
+  })
+});

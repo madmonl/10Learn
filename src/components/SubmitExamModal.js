@@ -38,6 +38,8 @@ export class SubmitExamModal extends Component {
   componentDidUpdate (prevProps) {
     if(prevProps.questionsStatus !== this.props.questionsStatus) {
       const { questions, answersStatus, questionsStatus, selectedSubjects } = this.props;
+      // Probably filter is more recomended than reduce here
+      // TODO - check it out!!
       const grade = (this.props.questionsStatus.reduce((prevQuestionsStatuses, questionStatus) => {
         if (questionStatus === 'correct') {
           prevQuestionsStatuses.push(questionStatus);
@@ -85,7 +87,7 @@ export class SubmitExamModal extends Component {
     const { questions, classes, answeredQuestions, questionsStatus, 
           answersStatus, grade } = this.props,
           { open } = this.state;
-          
+          //  <Done className={classes.IconLeft} />
     return (
       <div>
         <Button 
@@ -94,8 +96,8 @@ export class SubmitExamModal extends Component {
           size="small" 
           className="button--submit_exam"
         >            
-          סיום מבחן
-          <Done className={classes.IconLeft} />
+          סיום מבחן          
+          <img className="sendIcon" src="images/send.png"></img>
         </Button>
         <Modal
           aria-labelledby="simple-modal-title"
