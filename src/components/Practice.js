@@ -20,9 +20,6 @@ export const styles = theme => ({
     height: '900px',
     marginTop: '5px'
   },
-  formControl: {
-    margin: theme.spacing.unit * 3,
-  },
   rightIcon: {
     marginLeft: theme.spacing.unit,
   },
@@ -139,7 +136,7 @@ export class Practice extends Component {
             selectedSubjects.map((subject, index) => 
               <Chip 
                 key={index}
-                label={subject}
+                label={<span className="chipLabel">{subject}</span>}
                 onDelete={() => this.onDeleteChip(index)}
                 className={classes.chip}
                 color="primary"
@@ -148,13 +145,13 @@ export class Practice extends Component {
             )
           }
           { !startExam
-              ? <div>
+              ? <div className="practice__subject-selection-container">
                   <Typography
                     variant="subheading"
                     style={{ marginTop: 20 }}
                   >
-                    <FormControl component="fieldset" className={classes.formControl}>
-                      <FormLabel component="legend">בחרו נושאים:</FormLabel>
+                    <FormControl component="fieldset">
+                      <FormLabel className="formLabel" component="legend">בחרו נושאים:</FormLabel>
                       <FormGroup>
                         {
                           subjects.map(subject => (
@@ -174,7 +171,7 @@ export class Practice extends Component {
                   <Button 
                     variant="contained" 
                     color="primary" 
-                    className={classes.button}
+                    className="button--start-exam"
                     onClick={this.onStartExamClick}
                   >
                     התחל מבחן

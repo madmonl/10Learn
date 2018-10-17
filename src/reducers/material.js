@@ -6,7 +6,8 @@ let materialDefaults = {
   currTab: 'תרגול',
   subjects: [
     'חיבור',
-    'חיסור'
+    'חיסור',
+    'חיבור שברים'
   ]
 };
 

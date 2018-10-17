@@ -16,14 +16,17 @@ export const styles = theme => ({
 
 const ButtonCSS = styled(Button)`
   background-color: rgba(255, 255, 255, 0.1) !important;
+  font-size: 1.2rem important!;
 `;
 
 const ButtonMistake = styled(Button)`
   background-color: rgb(199, 67, 44) !important;
+  font-size: 1.2rem important!;
 `;
 
 const ButtonCorrect = styled(Button)`
   background-color: rgb(34, 184, 34) !important;
+  font-size: 1.2rem important!;
 `;
 
 export class NumbersNavigation extends Component {
@@ -49,7 +52,7 @@ export class NumbersNavigation extends Component {
                 <ButtonCSS
                   key={index}
                   variant="outlined" 
-                  className={classes.navButton}
+                  className="button--numbers-navigation"
                   onClick={() => this.onQuestionSummaryClick(index)}
                 >
                   {index + 1}
@@ -60,7 +63,7 @@ export class NumbersNavigation extends Component {
                 <ButtonCorrect
                   key={index}
                   variant="outlined" 
-                  className={classes.navButton}
+                  className="button--numbers-navigation"
                   onClick={() => this.onQuestionSummaryClick(index)}
                 >
                   {index + 1}
@@ -71,7 +74,7 @@ export class NumbersNavigation extends Component {
                 <ButtonMistake
                   key={index}
                   variant="outlined" 
-                  className={classes.navButton}
+                  className="button--numbers-navigation"
                   onClick={() => this.onQuestionSummaryClick(index)}
                 >
                   {index + 1}
@@ -82,7 +85,7 @@ export class NumbersNavigation extends Component {
                 <Button 
                   key={index}
                   variant="outlined" 
-                  className={classes.navButton}
+                  className="button--numbers-navigation"
                   onClick={() => this.onQuestionSummaryClick(index)}
                 >
                   {index + 1}

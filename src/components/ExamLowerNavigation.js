@@ -8,9 +8,6 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
 export const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  },
   rightIcon: {
     marginLeft: theme.spacing.unit
   },
@@ -46,7 +43,7 @@ export class ExamLowerNavigation extends Component {
           <Button 
             variant="contained" 
             color="primary" 
-            className={classes.button}
+            className="button--lower-navigation"
             onClick={() => this.onQuestionChange('prev')}
           >
             <ArrowForward className={classes.rightIcon} />
@@ -55,7 +52,7 @@ export class ExamLowerNavigation extends Component {
           <Button 
             variant="contained" 
             color="primary" 
-            className={classes.button}
+            className="button--lower-navigation"
             onClick={() => this.onQuestionChange('next')}
           >
             שאלה הבאה

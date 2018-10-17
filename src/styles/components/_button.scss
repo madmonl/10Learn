@@ -22,9 +22,10 @@
   background: #c74343 !important;
   color: white !important;
   height: 40px !important;
-  width: 111px !important;
+  width: 121px !important;
   padding: 8px 16px !important;
   margin: 0 !important;
+  font-size: $font-size-small !important;
 }
 
 .button--secondary {
@@ -37,12 +38,27 @@
 };
 
 .button--google_login {
-    margin-bottom: $s-size;
-    background: $red-google;    
+  margin-bottom: $s-size;
+  background: $red-google;    
 };
 
 .login_buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button--lower-navigation {
+  margin: 10px !important;
+  font-size: $font-size-small !important;
+}
+
+.button--numbers-navigation {
+  font-size: $font-size-small !important;
+  margin: 10px !important;
+}
+
+.button--start-exam {
+  font-size: $font-size-small !important;
+  margin: 10px !important;  
 }

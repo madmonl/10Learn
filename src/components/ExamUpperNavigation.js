@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import NumbersNavigation from './NumbersNavigation';
 import SubmitExamModal from './SubmitExamModal';
 
-
-
-
 export const ExamUpperNavigation = props => {
   const { questions, currQuestion, answeredQuestions, 
     questionsStatus, displaySubmitExamButton } = props;
