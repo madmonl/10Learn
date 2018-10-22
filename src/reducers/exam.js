@@ -100,6 +100,11 @@ export default (state = examState, action) => {
             ...state,
             selectedSubjects: action.selectedSubjects
           }
+        case 'SET_ANSWERS_STATISTICS':
+          return {
+            ...state,
+            stats: action.stats
+          }
         case 'SET_EXAMS':
           return {
             ...state,

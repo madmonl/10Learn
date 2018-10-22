@@ -21,8 +21,8 @@ export class ExamBody extends Component {
     // "exam__answer-item" when still in exam - clickable.
     // "exam__answer-correct" not clickable - correct solution only.
     // "exam__answer-mistake" only a mistaken solution that was chosen.
+    // or exam finished and
     // "exam__answer-default" not clickable not chosen, not correct answer.
-    // ""
     if (questionsStatus[currQuestion] === 'being_answered') {
       return "exam__answer-item"
     } else if (questions[currQuestion].index === index) {

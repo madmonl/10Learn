@@ -1,12 +1,13 @@
 import React, { Fragment, Component } from 'react';
 import { Typography, Paper, Modal, Slide } from '@material-ui/core/';
-import { Chip } from '@material-ui/core/';
+import { Chip, List, ListItem, ListItemText, Divider } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import NumbersNavigation from './NumbersNavigation';
 import Exam from './Exam';
 import { dispatchChangeExam } from '../actions/exam'
+import { Info } from '@material-ui/icons';
 
 const styles = theme => ({
   paper: { 
@@ -16,8 +17,7 @@ const styles = theme => ({
     marginTop: '5px'
   },
   chip: {
-    margin: theme.spacing.unit,
-    width: 40
+    margin: theme.spacing.unit
   },
 });
 
@@ -69,12 +69,25 @@ export class PrevExams extends Component {
                       />
                     )}
                   </div>
-                  <NumbersNavigation               
-                    questions={exam.questions}
-                    currQuestion={0}
-                    answeredQuestions={[]}
-                    questionsStatus={exam.questionsStatus}  
-                  />                
+                  <div className="prevExam__item">                    
+                    <NumbersNavigation               
+                      questions={exam.questions}
+                      currQuestion={0}
+                      answeredQuestions={[]}
+                      questionsStatus={exam.questionsStatus}  
+                    />
+                    <List className="Mui--list" component="nav">
+                      <ListItem dir="rtl" className="listItem--correct">
+                        <ListItemText className="listItemText" primary={`תשובות נכונות: ${exam.stats.correct}`} />
+                      </ListItem>                
+                      <ListItem dir="rtl" className="listItem--notAnswered">
+                        <ListItemText className="listItemText" primary={`תשובות שלא נענו: ${exam.stats.notAnswered}`} />
+                      </ListItem>
+                      <ListItem dir="rtl" className="listItem--mistake">
+                        <ListItemText className="listItemText" primary={`תשובות שגויות: ${exam.stats.mistake}`} />
+                      </ListItem>
+                    </List>
+                  </div>                                              
                 </div>            
               )}
               <Modal

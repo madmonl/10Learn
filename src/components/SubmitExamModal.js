@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Done } from '@material-ui/icons';
 import styled from 'styled-components';
 import { dispatchChangeQuestion, dispatchChangeQuestionStatus, 
-  dispatchCleanMarkedQuestions, dispatchSetGrade, startAddExam } from '../actions/exam';
+  dispatchCleanMarkedQuestions, dispatchSetGrade, startAddExam,
+  dispatchSetAnswersStatistics } from '../actions/exam';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
@@ -37,7 +38,8 @@ export class SubmitExamModal extends Component {
 
   componentDidUpdate (prevProps) {
     if(prevProps.questionsStatus !== this.props.questionsStatus) {
-      const { questions, answersStatus, questionsStatus, selectedSubjects } = this.props;
+      const { answersStatistics, questions, answersStatus, 
+        questionsStatus, selectedSubjects, stats } = this.props;
       // Probably filter is more recomended than reduce here
       // TODO - check it out!!
       const grade = (this.props.questionsStatus.reduce((prevQuestionsStatuses, questionStatus) => {
@@ -54,7 +56,8 @@ export class SubmitExamModal extends Component {
         questionsStatus,
         answersStatus,
         selectedSubjects,
-        grade
+        grade,
+        stats
       })
     }
   }
@@ -62,12 +65,32 @@ export class SubmitExamModal extends Component {
   onSubmitExam = () => {
     // Open Modal
     var index = 0;
+    let correctAnswersCount = 0, 
+        mistakenAnswersCount = 0, 
+        notAnsweredQuestionsCount = 0;
+    // Counting the correct, mistaken and notAnswered questions for statistical purposes.
     for (; index < 10; index++) {
-      this.props.dispatchChangeQuestionStatus(index, this.props.questions[index].index === this.props.answersStatus[index]
-        ? 'correct'
-        : 'mistake'
-      );
+      // Dont forget to change buttons colors on number navigation.
+      if (this.props.questions[index].index === this.props.answersStatus[index]) {
+        correctAnswersCount++;
+        this.props.dispatchChangeQuestionStatus(index, 'correct')        
+      } else if (this.props.questions[index].index !== this.props.answersStatus[index] &&
+          this.props.answeredQuestions[index]) {
+        mistakenAnswersCount++;
+        this.props.dispatchChangeQuestionStatus(index, 'mistake')        
+      } else {
+        this.props.dispatchChangeQuestionStatus(index, 'not_answered')
+      }            
     };
+    notAnsweredQuestionsCount = 
+      this.props.answeredQuestions.length 
+      - correctAnswersCount 
+      - mistakenAnswersCount
+    this.props.dispatchSetAnswersStatistics({
+      correct: correctAnswersCount,
+      mistake: mistakenAnswersCount,
+      notAnswered: notAnsweredQuestionsCount
+    });
     this.setState({ open: true });
   }
 
@@ -134,7 +157,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchChangeQuestionStatus: (index, status) => dispatch(dispatchChangeQuestionStatus(index, status)),
     dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
     dispatchSetGrade: (grade) => dispatch(dispatchSetGrade(grade)),
-    startAddExam: (exam) => dispatch(startAddExam(exam))
+    startAddExam: (exam) => dispatch(startAddExam(exam)),
+    dispatchSetAnswersStatistics: (stats) => dispatch(dispatchSetAnswersStatistics(stats))
 });
 
 const mapStateToProps = (state) => ({
@@ -143,7 +167,8 @@ const mapStateToProps = (state) => ({
     questionsStatus: state.exam.questionsStatus,
     answersStatus: state.exam.answersStatus,
     selectedSubjects: state.exam.selectedSubjects,
-    grade: state.exam.grade
+    grade: state.exam.grade,
+    stats: state.exam.stats
 });
 
 export default compose(

@@ -8,3 +8,42 @@
 .formLabel {
   font-size: $font-size-small !important;
 }
+
+.listItemText {
+  // padding: 10px 35px !important;
+  width: 80px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.listItem {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 115px !important;
+  height: 35px !important;
+  text-align: right !important;
+  padding: 0px !important;
+}
+
+.listItem--correct {
+  @extend .listItem;
+  background: rgb(34, 184, 34) !important;
+}
+
+.listItem--mistake {
+  @extend .listItem;
+  background-color: rgb(199, 67, 44) !important;
+}
+
+.listItem--notAnswered {
+  @extend .listItem;
+}
+
+.listItemText {
+  padding: 0px !important;
+}
+
+.Mui--list {
+  padding: 0px !important;
+}
