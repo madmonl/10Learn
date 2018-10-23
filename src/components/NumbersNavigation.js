@@ -14,29 +14,53 @@ export const styles = theme => ({
   }
 })
 
-const ButtonCSS = styled(Button)`
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  font-size: 1.2rem important!;
-`;
-
-const ButtonMistake = styled(Button)`
-  background-color: rgb(199, 67, 44) !important;
-  font-size: 1.2rem important!;
-`;
-
-const ButtonCorrect = styled(Button)`
-  background-color: rgb(34, 184, 34) !important;
-  font-size: 1.2rem important!;
-`;
-
 export class NumbersNavigation extends Component {
   constructor(props) {
     super(props);
     this.onQuestionSummaryClick = this.onQuestionSummaryClick.bind(this);
+    this.onButtonClassNameSelect = this.onButtonClassNameSelect.bind(this);
   }
 
   onQuestionSummaryClick = index => {
     this.props.dispatchChangeQuestion(index);
+  }
+  
+  onButtonClassNameSelect = (index, currQuestion, answeredQuestions, questionsStatus) => {
+    if (questionsStatus[index] === 'being_answered') {
+      if (!answeredQuestions[index] && currQuestion === index) {
+        // chosen but not answered button
+        return "button--chosen"        
+      } else if (!answeredQuestions[index] && currQuestion !== index) {
+        // regular exam button
+        return "button--numbers-navigation"
+      } else if (answeredQuestions[index] && currQuestion === index) {
+        // answered and chosen button
+        return "button--answered button--chosen"
+      } else if (answeredQuestions[index] && currQuestion !== index) {
+        // answered but not chosen button
+        return "button--answered"
+      } else throw new Error ("Tried to classify the button with no success @NumbersNavigation.onButtonSummaryClick")
+    } else {
+      // prev exam styles
+      if (questionsStatus[index] === 'correct') {
+        // correct button
+        return !(currQuestion === index) || this.props.preventBorderAppearance 
+          ? "button--correct"
+          : "button--correct button--chosen" 
+      } else if (questionsStatus[index] === 'mistake') {
+        // mistake button
+        return !(currQuestion === index) || this.props.preventBorderAppearance 
+          ? "button--mistake"
+          : "button--mistake button--chosen" 
+      } else if (questionsStatus[index] === 'not_answered') {
+        // not answered button
+        return !(currQuestion === index) || this.props.preventBorderAppearance
+          ? "button--numbers-navigation"
+          : "button--chosen" 
+      } else {
+        throw new Error("Tried to classify the button with no success @NumbersNavigation.onButtonSummaryClick") 
+      }
+    } 
   }
   
   render () {
@@ -45,54 +69,23 @@ export class NumbersNavigation extends Component {
     return (
       <div className="exam__navigation-container">
         <div className="exam__navigation">
-          {questions.map((undefined, index) => {
-            if ((currQuestion === index || answeredQuestions[index]) 
-              && questionsStatus[index] === 'being_answered') {
-                return (
-                <ButtonCSS
-                  key={index}
-                  variant="outlined" 
-                  className="button--numbers-navigation"
-                  onClick={() => this.onQuestionSummaryClick(index)}
-                >
-                  {index + 1}
-                </ButtonCSS>
+          {questions.map((undefined, index) => 
+            <Button
+              key={index}
+              variant="outlined" 
+              className={
+                this.onButtonClassNameSelect(
+                  index, 
+                  currQuestion, 
+                  answeredQuestions, 
+                  questionsStatus
                 )
-            } else if (questionsStatus[index] === 'correct') {
-              return (
-                <ButtonCorrect
-                  key={index}
-                  variant="outlined" 
-                  className="button--numbers-navigation"
-                  onClick={() => this.onQuestionSummaryClick(index)}
-                >
-                  {index + 1}
-                </ButtonCorrect>
-              )
-            } else if (questionsStatus[index] === 'mistake') {
-              return (
-                <ButtonMistake
-                  key={index}
-                  variant="outlined" 
-                  className="button--numbers-navigation"
-                  onClick={() => this.onQuestionSummaryClick(index)}
-                >
-                  {index + 1}
-                </ButtonMistake>
-              )
-            } else {
-              return (
-                <Button 
-                  key={index}
-                  variant="outlined" 
-                  className="button--numbers-navigation"
-                  onClick={() => this.onQuestionSummaryClick(index)}
-                >
-                  {index + 1}
-                </Button>
-              )
-            }
-          })}
+              }
+              onClick={() => this.onQuestionSummaryClick(index)}
+            >
+              {index + 1}
+            </Button>
+          )}
         </div>
       </div>
     )

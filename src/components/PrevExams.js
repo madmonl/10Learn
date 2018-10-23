@@ -74,7 +74,8 @@ export class PrevExams extends Component {
                       questions={exam.questions}
                       currQuestion={0}
                       answeredQuestions={[]}
-                      questionsStatus={exam.questionsStatus}  
+                      questionsStatus={exam.questionsStatus}
+                      preventBorderAppearance={true}  
                     />
                     <List className="Mui--list" component="nav">
                       <ListItem dir="rtl" className="listItem--correct">
