@@ -143,7 +143,7 @@ export class Practice extends Component {
                 variant="outlined"
               />
             )
-          }
+          }          
           { !startExam
               ? <div className="practice__subject-selection-container">
                   <Typography
