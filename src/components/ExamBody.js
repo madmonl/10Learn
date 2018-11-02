@@ -24,14 +24,14 @@ export class ExamBody extends Component {
     // or exam finished and
     // "exam__answer-default" not clickable not chosen, not correct answer.
     if (questionsStatus[currQuestion] === 'being_answered') {
-      return "exam__answer-item"
+      return "exam__answer-default"
     } else if (questions[currQuestion].index === index) {
-      return "exam__answer-correct exam__answer-item"
+      return "exam__answer-correct"
     } else if (questions[currQuestion].index !== index 
       && answersStatus[currQuestion] === index) {
-      return "exam__answer-mistake exam__answer-item"
+      return "exam__answer-mistake"
     } else {
-      return "exam__answer-default exam__answer-item"
+      return "exam__answer-default"
     };
   }
   
@@ -49,20 +49,23 @@ export class ExamBody extends Component {
             </MathJax.Provider>
           </div>
         </div>
-        <div className="exam__answers">
+        <div>
           {questions[currQuestion].solutions.map((solution, index) =>
             <div 
               className={
                 this.solutionClassName(index, questions, currQuestion, questionsStatus, answersStatus)
               }
-              key={index}
               onClick={() => this.onSubmitQuestion(currQuestion, index)}
             >
-              <MathJax.Provider>
-                <div>
-                    <MathJax.Node formula={solution} />
-                </div>
-              </MathJax.Provider>
+              <div                 
+                key={index}
+              >
+                <MathJax.Provider>
+                  <div>
+                      <MathJax.Node formula={solution} />
+                  </div>
+                </MathJax.Provider>
+              </div>
             </div>             
           )}
         </div>
