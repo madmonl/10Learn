@@ -120,7 +120,7 @@ export class SubmitExamModal extends Component {
           className="button--submit_exam"
         >            
           סיום מבחן          
-          <img className="sendIcon" src="images/send.png"></img>
+          <img className="send-icon" src="images/send.png"></img>
         </Button>
         <Modal
           aria-labelledby="simple-modal-title"

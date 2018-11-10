@@ -7,7 +7,7 @@ export const ExamUpperNavigation = props => {
   const { questions, currQuestion, answeredQuestions, 
     questionsStatus, displaySubmitExamButton } = props;
 
-  return(
+  return (
     <div className="exam__upper-footer">
       <NumbersNavigation 
         questions={questions}

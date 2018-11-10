@@ -1,13 +1,13 @@
 import React, { Fragment, Component } from 'react';
-import { Typography, Paper, Modal, Slide } from '@material-ui/core/';
-import { Chip, List, ListItem, ListItemText, Divider } from '@material-ui/core/';
+import { Chip, Typography, Paper, Modal, Slide, IconButton } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import NumbersNavigation from './NumbersNavigation';
+import PrevExamsAnswersStats from './PrevExamsAnswersStats';
 import Exam from './Exam';
-import { dispatchChangeExam } from '../actions/exam'
-import { Info } from '@material-ui/icons';
+import { dispatchChangeExam, startRemoveExam } from '../actions/exam'
+import { Delete } from '@material-ui/icons/';
 
 const styles = theme => ({
   paper: { 
@@ -34,7 +34,11 @@ export class PrevExams extends Component {
       open: false,
       modalExam: {}
     }
-    this.changeExamModal = this.changeExamModal.bind(this);
+  }
+
+  onRemoveExam = (id, e) => {
+    e.stopPropagation()
+    this.props.startRemoveExam(id)
   }
 
   changeExamModal = exam => {
@@ -69,7 +73,15 @@ export class PrevExams extends Component {
                       />
                     )}
                   </div>
-                  <div className="prevExam__item">                    
+                  <div className="prevExam__item">   
+                    <IconButton 
+                      className="IconButton"
+                      aria-label="ChevronRight"
+                      onClick={(e) => this.onRemoveExam(exam.id, e)}
+                      color="primary"
+                    >
+                      <Delete />
+                    </IconButton>
                     <NumbersNavigation               
                       questions={exam.questions}
                       currQuestion={0}
@@ -77,17 +89,7 @@ export class PrevExams extends Component {
                       questionsStatus={exam.questionsStatus}
                       preventBorderAppearance={true}  
                     />
-                    <List className="Mui--list" component="nav">
-                      <ListItem dir="rtl" className="listItem--correct">
-                        <ListItemText className="listItemText" primary={`תשובות נכונות: ${exam.stats.correct}`} />
-                      </ListItem>                
-                      <ListItem dir="rtl" className="listItem--notAnswered">
-                        <ListItemText className="listItemText" primary={`תשובות שלא נענו: ${exam.stats.notAnswered}`} />
-                      </ListItem>
-                      <ListItem dir="rtl" className="listItem--mistake">
-                        <ListItemText className="listItemText" primary={`תשובות שגויות: ${exam.stats.mistake}`} />
-                      </ListItem>
-                    </List>
+                    <PrevExamsAnswersStats exam={exam}/>                    
                   </div>                                              
                 </div>            
               )}
@@ -114,7 +116,8 @@ export class PrevExams extends Component {
 };
 
 const mapDispatchToProps = dispatch => ({
-  dispatchChangeExam: (exam) => dispatch(dispatchChangeExam(exam))
+  dispatchChangeExam: (exam) => dispatch(dispatchChangeExam(exam)),
+  startRemoveExam: (id) => dispatch(startRemoveExam(id))
 });
 
 const mapStateToProps = (state) => ({

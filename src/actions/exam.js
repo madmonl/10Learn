@@ -117,23 +117,39 @@ export const addExam = exam => ({
 });
 
 export const startAddExam = (examData = {}) => {
+  return (dispatch, getState) => {
+      const uid = getState().auth.uid;
+      const {
+          questions = {}, 
+          answersStatus = [],
+          questionsStatus = [],
+          selectedSubjects = [],
+          grade = 0,
+          stats = {}
+      } = examData;
+      const exam = { questions, answersStatus, questionsStatus, selectedSubjects, grade, stats };
+
+      return db.ref(`users/${uid}/exams`).push(exam).then((ref) => {
+        dispatch(addExam({
+          id: ref.key,
+          ...exam
+        }));
+      });
+  };
+};
+  
+
+// ADD_EXPENSE
+export const removeExam = id => ({
+  type: 'REMOVE_EXAM',
+  id
+});
+
+export const startRemoveExam = id => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        const {
-            questions = {}, 
-            answersStatus = [],
-            questionsStatus = [],
-            selectedSubjects = [],
-            grade = 0,
-            stats = {}
-        } = examData;
-        const exam = { questions, answersStatus, questionsStatus, selectedSubjects, grade, stats };
-
-        return db.ref(`users/${uid}/exams`).push(exam).then((ref) => {
-            dispatch(addExam({
-                id: ref.key,
-                ...exam
-            }));
+        return db.ref(`users/${uid}/exams/${id}`).remove().then(() => {
+            dispatch(removeExam(id));
         });
     };
 };

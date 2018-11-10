@@ -10,7 +10,7 @@ exports[`should render ExamLowerNavigation correctly 1`] = `
       onClick={[Function]}
       variant="contained"
     >
-      <pure(SendIcon) />
+      <pure(send-icon) />
       שאלה קודמת
     </WithStyles(Button)>
     <WithStyles(Button)
@@ -19,7 +19,7 @@ exports[`should render ExamLowerNavigation correctly 1`] = `
       variant="contained"
     >
       שאלה הבאה
-      <pure(SendIcon) />
+      <pure(send-icon) />
     </WithStyles(Button)>
   </div>
 </div>

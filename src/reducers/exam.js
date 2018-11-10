@@ -1,3 +1,4 @@
+
 let answeredQuestions = [], 
     answersStatus = [], 
     questionsStatus = [],
@@ -19,6 +20,11 @@ let examState = {
 
 export default (state = examState, action) => {
     switch (action.type) {
+        case 'REMOVE_EXAM':
+          return {
+            ...state,
+            prevExams: state.prevExams.filter((exam) => exam.id !== action.id)
+          }
         case 'CHANGE_QUESTION':
             return {
               ...state,
@@ -129,3 +135,27 @@ export default (state = examState, action) => {
   };
   
 export { examState };
+
+// example state structure
+// state = {
+//   auth: {
+//     uid
+//   },
+//   material: {
+//     tabs: ["מבחנים קודמים", "תרגול"],
+//     currTab: "תרגול",
+//     subjects: ["חיבור שברים", "חיסור", "חיבור"]
+//   },
+//   exam: {
+//     currQuestion: int,
+//     answeredQuestions: [Booleans],
+//     questionsStatus: [Strings],
+//     answersStatus: [Int],
+//     prevExams: Array of {
+//       id,
+//       ...exam,
+//       selectedSubjects,
+//       stats,
+//     }
+//   }
+// }

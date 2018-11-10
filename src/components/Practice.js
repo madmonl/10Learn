@@ -10,6 +10,7 @@ import QuestionGenerator from './QuestionGenerator';
 import { dispatchSetQuestions, dispatchChangeQuestion, dispatchCleanMarkedQuestions,
   dispatchClearQuestionsStatus, dispatchSetAnswersStatusToNone, 
   dispatchClearAnswersStatus, dispatchSetSelectedSubjects } from '../actions/exam';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export const styles = theme => ({
   button: {
@@ -22,10 +23,7 @@ export const styles = theme => ({
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
-  },
-  chip: {
-    margin: theme.spacing.unit,
-  },
+  }
 });
 
 export class Practice extends Component {
@@ -66,7 +64,7 @@ export class Practice extends Component {
     this.setState({ startExam: false });
   }
 
-  onDeleteChip = subjectIndex => {
+  onDeleteChip = (subjectIndex, subject) => {
     this.setState(({ chipCount, selectedSubjects }) => {
       if (chipCount === 1) {
         return {
@@ -132,18 +130,24 @@ export class Practice extends Component {
           >
             <ChevronRight />
           </IconButton>
-          {
-            selectedSubjects.map((subject, index) => 
-              <Chip 
-                key={index}
-                label={<span className="chipLabel">{subject}</span>}
-                onDelete={() => this.onDeleteChip(index)}
-                className={classes.chip}
-                color="primary"
-                variant="outlined"
-              />
-            )
-          }          
+          <ReactCSSTransitionGroup
+            transitionName="practice-chip-fade"
+            transitionEnterTimeout={1000}
+            transitionLeaveTimeout={1000}
+          >
+            {
+              selectedSubjects.map((subject, index) => 
+                <Chip 
+                  key={index}
+                  label={<span className="chipLabel">{subject}</span>}
+                  onDelete={() => this.onDeleteChip(index, subject)}
+                  className="subject-selection__chips"
+                  color="primary"
+                  variant="outlined"
+                />
+              )
+            }
+          </ReactCSSTransitionGroup>          
           { !startExam
               ? <div className="practice__subject-selection-container">
                   <Typography
