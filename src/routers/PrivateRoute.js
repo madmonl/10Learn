@@ -19,6 +19,7 @@ export const PrivateRoute = ({
       isAuthenticated ? (
         <div> 
           <ButtonAppBar styles={styles.AppBar} />
+          <div className="space" />
           <Component {...props} />
         </div>
       ) : (

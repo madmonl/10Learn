@@ -50,7 +50,7 @@ export class PrevExams extends Component {
     const { classes, prevExams, uid } = this.props,
           { open, modalExam } = this.state
     
-    return (
+    return ( 
       <div className="content-container">
         <Paper className={classes.paper}>
         {          

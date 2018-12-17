@@ -1,7 +1,8 @@
 let materialDefaults = { 
   tabs: [
     'תרגול',
-    'מבחנים קודמים'
+    'מבחנים קודמים',
+    'חנות'
   ],
   currTab: 'תרגול',
   subjects: [

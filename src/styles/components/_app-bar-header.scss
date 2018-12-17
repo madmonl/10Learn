@@ -1,3 +1,8 @@
+.navbar {
+  position: fixed;
+   top: 0px;
+}
+
 .app-bar-header {
   display: flex;
   flex-direction: row;
@@ -7,8 +12,16 @@
   font-size: 20px;
 }
 
+.app-component {
+  margin-top: 68px;
+}
+
+.space {
+  height: 64px;
+}
+
 .app-bar-header__theme {
-  background: #098027
+  background: #098027;
 }
 
 .app-bar-header__tab {

@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, IconButton, Typography, Toolbar, AppBar, Tabs, Tab, Badge, Paper } from '@material-ui/core/';
-import MenuIcon from '@material-ui/icons/Menu';
 import { startLogout, dispatchGuestLogout } from '../actions/auth';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
@@ -62,7 +60,7 @@ export class ButtonAppBar extends Component {
     const currTabIndex = tabs.indexOf(currTab);
     return (
         <div>
-            <AppBar position="static" color="default">
+            <AppBar position="fixed" color="default">
               <div className="app-bar-header__theme">            
                 <div className="content-container">
                   <ToolbarCSS>
@@ -85,6 +83,12 @@ export class ButtonAppBar extends Component {
                           <Folder className="app-bar-header__icon" />
                           <TypographyTABS className="app-bar-header__text" color="textPrimary" variant="title">
                             מבחנים קודמים
+                          </TypographyTABS>
+                        </span>} />
+                        <Tab label={<span className="app-bar-header__tab">
+                          <Folder className="app-bar-header__icon" />
+                          <TypographyTABS className="app-bar-header__text" color="textPrimary" variant="title">
+                            חנות
                           </TypographyTABS>
                         </span>} />
                       </Tabs>
