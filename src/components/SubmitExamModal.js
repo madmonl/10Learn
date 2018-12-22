@@ -6,9 +6,12 @@ import styled from 'styled-components';
 import { dispatchChangeQuestion, dispatchChangeQuestionStatus, 
   dispatchCleanMarkedQuestions, dispatchSetGrade, startAddExam,
   dispatchSetAnswersStatistics } from '../actions/exam';
+import { startChangeTokens } from '../actions/shop';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
+
+const TOKENS_PER_CORRECT_ANSWER = 10; 
 
 function getModalStyle() {
   return {
@@ -86,6 +89,9 @@ export class SubmitExamModal extends Component {
       this.props.answeredQuestions.length 
       - correctAnswersCount 
       - mistakenAnswersCount
+    
+    this.props.startChangeTokens(correctAnswersCount)
+      
     this.props.dispatchSetAnswersStatistics({
       correct: correctAnswersCount,
       mistake: mistakenAnswersCount,
@@ -106,6 +112,7 @@ export class SubmitExamModal extends Component {
     // Close Modal
     this.setState({ open: false })
   }
+  
   render () {
     const { questions, classes, answeredQuestions, questionsStatus, 
           answersStatus, grade } = this.props,
@@ -158,7 +165,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchCleanMarkedQuestions: () => dispatch(dispatchCleanMarkedQuestions()),
     dispatchSetGrade: (grade) => dispatch(dispatchSetGrade(grade)),
     startAddExam: (exam) => dispatch(startAddExam(exam)),
-    dispatchSetAnswersStatistics: (stats) => dispatch(dispatchSetAnswersStatistics(stats))
+    dispatchSetAnswersStatistics: (stats) => dispatch(dispatchSetAnswersStatistics(stats)),
+    startChangeTokens: (tokens) => dispatch(startChangeTokens(tokens)) 
 });
 
 const mapStateToProps = (state) => ({

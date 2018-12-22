@@ -1,0 +1,44 @@
+.shop {
+  display: block;
+}
+
+.shop-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around
+}
+
+.shop--item {
+  display: flex;
+  flex-direction: column;
+  justify-content: rigth;
+  max-width: 150px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.shop--image {
+  width: 150px;
+  height: 150px;
+}
+
+.shop--item-title {  
+  overflow : hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 13px;
+  height: 40px;
+}
+
+.shop--item-description {
+  padding: 15px;
+}
+
+.shop--item-price {
+
+}
+
+
+  

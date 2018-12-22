@@ -52,6 +52,7 @@ export class ExamBody extends Component {
         <div>
           {questions[currQuestion].solutions.map((solution, index) =>
             <div 
+              key={index}
               className={
                 this.solutionClassName(index, questions, currQuestion, questionsStatus, answersStatus)
               }

@@ -87,7 +87,6 @@ export const dispatchSetAnswersStatistics = stats => ({
   stats
 });
 
-
 export const setExams = prevExams => ({
   type: 'SET_EXAMS',
   prevExams
@@ -137,7 +136,6 @@ export const startAddExam = (examData = {}) => {
       });
   };
 };
-  
 
 // ADD_EXPENSE
 export const removeExam = id => ({
