@@ -72,7 +72,6 @@ export class Shop extends Component{
         {
           imagesArrived &&
           <div>
-            <UserShopInfo /> 
             {
               images.map((imageRow, index) => 
                 <div key={index} className="shop-row">
