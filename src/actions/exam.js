@@ -119,6 +119,7 @@ export const startAddExam = (examData = {}) => {
   return (dispatch, getState) => {
       const uid = getState().auth.uid;
       const {
+          id,
           questions = {}, 
           answersStatus = [],
           questionsStatus = [],
@@ -126,7 +127,7 @@ export const startAddExam = (examData = {}) => {
           grade = 0,
           stats = {}
       } = examData;
-      const exam = { questions, answersStatus, questionsStatus, selectedSubjects, grade, stats };
+      const exam = { id, questions, answersStatus, questionsStatus, selectedSubjects, grade, stats };
 
       return db.ref(`users/${uid}/exams`).push(exam).then((ref) => {
         dispatch(addExam({

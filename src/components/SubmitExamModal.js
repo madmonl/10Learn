@@ -10,6 +10,7 @@ import { startChangeTokens } from '../actions/shop';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 
 const TOKENS_PER_CORRECT_ANSWER = 10; 
 
@@ -55,6 +56,7 @@ export class SubmitExamModal extends Component {
       }, []).length / 10) * 100;
       this.props.dispatchSetGrade(grade);   
       this.props.startAddExam({
+        id: uuid(),
         questions,
         questionsStatus,
         answersStatus,

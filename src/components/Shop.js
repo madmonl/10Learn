@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ShopItem from './ShopItem'
 import UserShopInfo from './UserShopInfo'
+import axios from 'axios'
 
 const ITEMS_IN_ROW = 5
 
@@ -35,30 +36,28 @@ export class Shop extends Component{
   }
 
   componentDidMount() {
-    request(`${corsAnywhere}https://toysrus.co.il/all-products.html?limit=32&no_cache=1&p=1&price=-150`, (err, resp, html) => {
-      if (!err){
-        const $ = cheerio.load(html);
-        let images = Array.from($('.swatchProdImg')).map(obj => obj.attribs.src)               
-        let hrefs = Array.from($('.prodtitle')).map(obj => obj.attribs.href)
-        let titles = Array.from($('.prodtitle')).map(obj => obj.children[0].data)       
-        let prices = Array.from($('.ourPrice2')).map(price => {
-          let data = price.children[0].data
-          return `${Math.floor(parseFloat(
-            data
-              .split('')
-              .slice(0, data.length - 2)
-              .join('')
-            ) * 100)} אסימונים`
-        })
+    axios.get(`/shop-items/https://toysrus.co.il/all-products.html?limit=32&no_cache=1&p=1&price=-150`).then(res => {
+      const $ = cheerio.load(res.data)
+      let images = Array.from($('.swatchProdImg')).map(obj => obj.attribs.src)               
+      let hrefs = Array.from($('.prodtitle')).map(obj => obj.attribs.href)
+      let titles = Array.from($('.prodtitle')).map(obj => obj.children[0].data)       
+      let prices = Array.from($('.ourPrice2')).map(price => {
+        let data = price.children[0].data
+        return `${Math.floor(parseFloat(
+          data
+            .split('')
+            .slice(0, data.length - 2)
+            .join('')
+          ) * 100)} אסימונים`
+      })
 
-        sliceToRows(images) 
-        sliceToRows(hrefs)
-        sliceToRows(titles)
-        sliceToRows(prices)
+      sliceToRows(images) 
+      sliceToRows(hrefs)
+      sliceToRows(titles)
+      sliceToRows(prices)
 
-        this.setState({ images, titles, prices, hrefs, imagesArrived: true })
-      } else console.log(err)
-    });
+      this.setState({ images, titles, prices, hrefs, imagesArrived: true })
+    }).catch(e => console.log(e));
   }
 
   render() {

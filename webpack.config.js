@@ -57,7 +57,13 @@ module.exports = (env) => {
       })
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
-    devServer: {
+    devServer: {    
+      proxy: {
+        '/shop-items/*': {
+          target: 'http://localhost:3000',
+          secure: false
+        }
+      },
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
       publicPath: '/dist/',
