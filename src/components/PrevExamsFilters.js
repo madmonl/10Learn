@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { TextField, FormControl, InputLabel, Select } from '@material-ui/core/';
+import { TextField, FormControl, NativeSelect } from '@material-ui/core/';
 import { dispatchChangeIdFilter, dispatchChangeSortByFilter } from '../actions/filters'
 import { connect } from 'react-redux'
+import { Search } from '@material-ui/icons';
 
 export class PrevExamsFilters extends Component { 
   constructor(props) {
@@ -20,30 +21,40 @@ export class PrevExamsFilters extends Component {
   }
   
   render() {
+    const { sortBy, sortByFilers } = this.props
     return (
       <div dir="rtl">
         <TextField
           dir="rtl"
           id="search"
-          label="חיפוש"
+          label={
+            <Search className="mui-search"/>
+          }
           type="search"
           margin="normal"
           onChange={this.onChange('ID')}
         />
-        <FormControl>
-          <Select
+        <FormControl className="mui-form">
+          <NativeSelect
             native
-            value={this.state.age}
+            value={sortBy}
             onChange={this.onChange('sortBy')}
             inputProps={{
               name: 'age',
               id: 'age-native-simple',
             }}
           >
-            <option value={"ציון גבוה קודם"}>ציון גבוה קודם</option>
-            <option value={"ציון נמוך קודם"}>ציון נמוך קודם</option>
-            <option value={"תאריך"}>תאריך</option>
-          </Select> 
+            {console.log(sortByFilers)}
+            {
+              sortByFilers.map(filter =>                 
+                <option 
+                  key={filter}
+                  value={filter}
+                >
+                  {filter}
+                </option>)
+            }
+          </NativeSelect> 
         </FormControl>
       </div>
     )
@@ -51,7 +62,8 @@ export class PrevExamsFilters extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  text: state.filters.text
+  sortBy: state.filters.sortBy,
+  sortByFilers: state.filters.sortByFilers
 })
 
 const mapDispatchToProps = (dispatch) => ({

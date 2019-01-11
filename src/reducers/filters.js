@@ -1,6 +1,11 @@
 const filterReducerDefaultState = {
   id: '',
-  sortBy: 'ציון גבוה קודם'
+  sortBy: 'ציון גבוה קודם',
+  sortByFilers: [
+    'ציון גבוה קודם',
+    'ציון נמוך קודם',
+    'תאריך'
+  ]
 }
 
 export default (state = filterReducerDefaultState, action) => {

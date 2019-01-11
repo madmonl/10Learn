@@ -138,7 +138,7 @@ export class Practice extends Component {
             {
               selectedSubjects.map((subject, index) => 
                 <Chip 
-                  key={index}
+                  key={subject}
                   label={<span className="chipLabel">{subject}</span>}
                   onDelete={() => this.onDeleteChip(index, subject)}
                   className="subject-selection__chips"

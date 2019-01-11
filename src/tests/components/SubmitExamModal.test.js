@@ -93,5 +93,5 @@ test('componentWillUpdate', () => {
     newQuestionsStatus[i] = 'correct';
   };
   wrapper.setProps({ questionsStatus: newQuestionsStatus });
-  expect(dispatchSetGrade).toHaveBeenCalledWith(100);
+    expect(dispatchSetGrade).toHaveBeenCalledWith(100);
 })

@@ -51,3 +51,13 @@
 .IconButton {
   margin-left: 24px;
 }
+
+.mui-search {
+  position: absolute;
+  right: -100px; 
+  top: -10px;
+}
+
+.mui-form{
+  direction: rtl !important;
+}
